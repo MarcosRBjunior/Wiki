@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1",
+    "nome": "Aang",
+    "nacao": "Nômades do Ar",
+    "idade": 12,
+    "historia": "Último Nômade do Ar e o Avatar mais recente, Aang passou cem anos congelado em um iceberg até ser encontrado por Katara e Sokka. Precisa aprender a dominar os quatro elementos para derrotar o Senhor do Fogo Ozai e trazer equilíbrio ao mundo.",
+    "sonhos": "Restaurar a cultura dos Nômades do Ar e viver em paz, sem abrir mão de quem é para cumprir seu dever como Avatar.",
+    "imagem": "/personagens/aang.png"
+  },
+  {
+    "id": "2",
+    "nome": "Katara",
+    "nacao": "Tribo da Água do Sul",
+    "idade": 14,
+    "historia": "Uma das últimas dobradoras d'água da Tribo do Sul, Katara se torna mentora e melhor amiga de Aang, ajudando-o em sua jornada enquanto busca vingança contra a Nação do Fogo pela morte de sua mãe.",
+    "sonhos": "Tornar-se uma mestra da dobra d'água e ajudar a reconstruir sua tribo, protegendo quem ama.",
+    "imagem": "/personagens/katara.png"
+  },
+  {
+    "id": "3",
+    "nome": "Sokka",
+    "nacao": "Tribo da Água do Sul",
+    "idade": 15,
+    "historia": "Irmão de Katara, um dos poucos guerreiros não-dobradores do grupo. Evolui de cético e brincalhão para um estrategista habilidoso, essencial nos planos de batalha contra a Nação do Fogo.",
+    "sonhos": "Ser reconhecido como um grande guerreiro e estrategista, à altura do pai que tanto admira.",
+    "imagem": "/personagens/sokka.png"
+  },
+  {
+    "id": "4",
+    "nome": "Toph Beifong",
+    "nacao": "Reino da Terra",
+    "idade": 12,
+    "historia": "Cega desde o nascimento, Toph desenvolveu uma forma única de dobra de terra baseada em vibrações, tornando-se a criadora da metalurgia. Foge da superproteção de sua família para se juntar ao grupo de Aang.",
+    "sonhos": "Ser vista pelo que realmente é, e não pela deficiência, provando que é a maior mestra de terra do mundo.",
+    "imagem": "/personagens/toph.png"
+  },
+  {
+    "id": "5",
+    "nome": "Zuko",
+    "nacao": "Nação do Fogo",
+    "idade": 16,
+    "historia": "Príncipe exilado da Nação do Fogo, banido pelo próprio pai. Passa a maior parte da série caçando o Avatar na esperança de recuperar sua honra, até questionar tudo o que lhe ensinaram.",
+    "sonhos": "Recuperar sua honra e, eventualmente, encontrar seu próprio caminho, longe da sombra do pai.",
+    "imagem": "/personagens/zuko.png"
+  },
+  {
+    "id": "6",
+    "nome": "Iroh",
+    "nacao": "Nação do Fogo",
+    "idade": 65,
+    "historia": "Tio de Zuko e ex-general da Nação do Fogo, conhecido como 'Dragão do Oeste'. Após perder o filho na guerra, torna-se uma figura sábia e paciente que guia Zuko em sua jornada de redenção.",
+    "sonhos": "Ver o sobrinho encontrar paz e um mundo livre da guerra que ajudou a começar.",
+    "imagem": "/personagens/iroh.png"
+  },
+  {
+    "id": "7",
+    "nome": "Azula",
+    "nacao": "Nação do Fogo",
+    "idade": 14,
+    "historia": "Princesa da Nação do Fogo e irmã mais nova de Zuko, prodígio da dobra de fogo. Cresceu sob enorme pressão para ser perfeita, o que a torna uma das antagonistas mais complexas da série.",
+    "sonhos": "Provar que é digna do trono e do amor do pai, mesmo que isso a custe a sanidade.",
+    "imagem": "/personagens/azula.png"
+  },
+  {
+    "id": "8",
+    "nome": "Suki",
+    "nacao": "Tribo Kyoshi",
+    "idade": 15,
+    "historia": "Líder das Guerreiras Kyoshi, um grupo de combatentes de elite na Ilha Kyoshi. Treina Sokka em suas técnicas de luta e se torna uma aliada fundamental do grupo.",
+    "sonhos": "Proteger sua ilha e provar que as Guerreiras Kyoshi são páreo para qualquer exército.",
+    "imagem": "/personagens/suki.png"
+  }
+]

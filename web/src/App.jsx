@@ -1,5 +1,12 @@
+import { ListaPersonagens } from './pages/ListaPersonagens.jsx'
+
 function App() {
-  return <p>Web placeholder pronto. Apollo Client e listagem serão configurados nas tasks 6b e 7.</p>
+  return (
+    <>
+      <h1>Wiki de Fãs — Avatar: A Lenda de Aang</h1>
+      <ListaPersonagens />
+    </>
+  )
 }
 
 export default App

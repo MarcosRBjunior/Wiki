@@ -6,7 +6,6 @@ export const PERSONAGENS_QUERY = gql`
       id
       nome
       nacao
-      imagem
     }
   }
 `

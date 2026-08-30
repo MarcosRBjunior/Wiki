@@ -12,5 +12,6 @@ export const typeDefs = `#graphql
   type Query {
     status: String!
     personagens: [Personagem!]!
+    personagem(id: ID!): Personagem
   }
 `;

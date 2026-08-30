@@ -10,14 +10,14 @@ const NACOES = [
 const PADRAO = { corVar: '--cor-primaria', corTextoVar: '--cor-sobre-primaria' }
 
 function encontrarNacao(nacao = '') {
-  const nacaoNormalizada = nacao.toLowerCase()
-  return NACOES.find(({ palavraChave }) => nacaoNormalizada.includes(palavraChave)) ?? PADRAO
+  const palavras = nacao.toLowerCase().split(/\s+/)
+  return NACOES.find(({ palavraChave }) => palavras.includes(palavraChave)) ?? PADRAO
 }
 
-export function corVarDaNacao(nacao) {
-  return encontrarNacao(nacao).corVar
-}
-
-export function corTextoVarDaNacao(nacao) {
-  return encontrarNacao(nacao).corTextoVar
+export function estiloNacaoVars(nacao) {
+  const { corVar, corTextoVar } = encontrarNacao(nacao)
+  return {
+    '--cor-nacao-atual': `var(${corVar})`,
+    '--cor-sobre-nacao-atual': `var(${corTextoVar})`,
+  }
 }

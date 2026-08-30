@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { PERSONAGEM_QUERY } from '../graphql/queries.js'
-import { corVarDaNacao, corTextoVarDaNacao } from '../utils/nacao.js'
+import { estiloNacaoVars } from '../utils/nacao.js'
 
 export function PersonagemDetalhe() {
   const { id } = useParams()
@@ -12,13 +12,9 @@ export function PersonagemDetalhe() {
   if (!data.personagem) return <p className="estado-info">Personagem não encontrado.</p>
 
   const { nome, nacao, idade, historia, sonhos } = data.personagem
-  const estiloNacao = {
-    '--cor-nacao-atual': `var(${corVarDaNacao(nacao)})`,
-    '--cor-sobre-nacao-atual': `var(${corTextoVarDaNacao(nacao)})`,
-  }
 
   return (
-    <article className="personagem-detalhe" style={estiloNacao}>
+    <article className="personagem-detalhe" style={estiloNacaoVars(nacao)}>
       <Link to="/" className="personagem-detalhe__voltar">&larr; Voltar para a listagem</Link>
       <header className="personagem-detalhe__cabecalho">
         <h2>{nome}</h2>

@@ -18,8 +18,8 @@ export function PersonagemDetalhe() {
     <motion.article
       className="personagem-detalhe"
       style={estiloNacaoVars(nacao)}
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ y: 16 }}
+      animate={{ y: 0 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
     >
       <Link to="/" className="personagem-detalhe__voltar">&larr; Voltar para a listagem</Link>

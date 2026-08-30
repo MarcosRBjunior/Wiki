@@ -9,3 +9,17 @@ export const PERSONAGENS_QUERY = gql`
     }
   }
 `
+
+export const PERSONAGEM_QUERY = gql`
+  query Personagem($id: ID!) {
+    personagem(id: $id) {
+      id
+      nome
+      nacao
+      idade
+      historia
+      sonhos
+      imagem
+    }
+  }
+`

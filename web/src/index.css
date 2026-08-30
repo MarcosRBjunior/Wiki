@@ -53,3 +53,8 @@ body {
   color: #666;
   font-size: 14px;
 }
+
+.personagem-detalhe__nacao {
+  color: #666;
+  margin-top: 0;
+}

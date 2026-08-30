@@ -46,7 +46,8 @@ describe('App - rotas', () => {
     renderApp('/personagens/1')
 
     expect(await screen.findByRole('heading', { name: 'Aang' })).toBeInTheDocument()
-    expect(screen.getByText(/nômades do ar · 12 anos/i)).toBeInTheDocument()
+    expect(screen.getByText('Nômades do Ar')).toBeInTheDocument()
+    expect(screen.getByText(/12 anos/i)).toBeInTheDocument()
   })
 
   test('clicar em um card da listagem navega para a página de detalhe', async () => {
@@ -55,6 +56,7 @@ describe('App - rotas', () => {
     const link = await screen.findByRole('link', { name: /aang/i })
     fireEvent.click(link)
 
-    expect(await screen.findByText(/nômades do ar · 12 anos/i)).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Aang' })).toBeInTheDocument()
+    expect(screen.getByText(/12 anos/i)).toBeInTheDocument()
   })
 })

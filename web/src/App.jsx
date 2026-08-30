@@ -1,15 +1,18 @@
 import { Routes, Route } from 'react-router-dom'
+import { Cabecalho } from './components/Cabecalho.jsx'
 import { ListaPersonagens } from './pages/ListaPersonagens.jsx'
 import { PersonagemDetalhe } from './pages/PersonagemDetalhe.jsx'
 
 function App() {
   return (
     <>
-      <h1>Wiki de Fãs — Avatar: A Lenda de Aang</h1>
-      <Routes>
-        <Route path="/" element={<ListaPersonagens />} />
-        <Route path="/personagens/:id" element={<PersonagemDetalhe />} />
-      </Routes>
+      <Cabecalho />
+      <main className="conteudo">
+        <Routes>
+          <Route path="/" element={<ListaPersonagens />} />
+          <Route path="/personagens/:id" element={<PersonagemDetalhe />} />
+        </Routes>
+      </main>
     </>
   )
 }

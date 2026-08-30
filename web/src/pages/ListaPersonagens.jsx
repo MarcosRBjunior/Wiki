@@ -5,8 +5,8 @@ import { PersonagemCard } from '../components/PersonagemCard.jsx'
 export function ListaPersonagens() {
   const { data, loading, error } = useQuery(PERSONAGENS_QUERY)
 
-  if (loading) return <p>Carregando personagens...</p>
-  if (error) return <p>Não foi possível carregar os personagens.</p>
+  if (loading) return <p className="estado-info">Carregando personagens...</p>
+  if (error) return <p className="estado-info estado-info--erro">Não foi possível carregar os personagens.</p>
 
   return (
     <section className="personagens-grid">

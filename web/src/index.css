@@ -24,10 +24,17 @@ body {
 }
 
 .personagem-card {
+  display: block;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
   text-align: center;
+  color: inherit;
+  text-decoration: none;
+}
+
+.personagem-card:hover {
+  border-color: #6b6375;
 }
 
 .personagem-card__avatar {

@@ -8,7 +8,9 @@ export function PersonagemCard({ personagem }) {
         {personagem.nome.charAt(0)}
       </div>
       <h2>{personagem.nome}</h2>
-      <p className="personagem-card__nacao">{personagem.nacao}</p>
+      <p className="personagem-card__nacao">
+        <span className="selo-nacao">{personagem.nacao}</span>
+      </p>
     </Link>
   )
 }

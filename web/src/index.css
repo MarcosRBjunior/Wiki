@@ -200,6 +200,7 @@ button:focus-visible {
   box-shadow: var(--sombra);
   padding: 24px;
   max-width: 640px;
+  margin: 0 auto;
 }
 
 .personagem-detalhe__voltar {

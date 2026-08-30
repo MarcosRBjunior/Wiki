@@ -9,8 +9,8 @@ const NACOES = [
 
 const PADRAO = { corVar: '--cor-primaria', corTextoVar: '--cor-sobre-primaria' }
 
-function encontrarNacao(nacao = '') {
-  const palavras = nacao.toLowerCase().split(/\s+/)
+function encontrarNacao(nacao) {
+  const palavras = (nacao ?? '').toLowerCase().split(/\s+/)
   return NACOES.find(({ palavraChave }) => palavras.includes(palavraChave)) ?? PADRAO
 }
 

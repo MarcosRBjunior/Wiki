@@ -1,9 +1,25 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import { estiloNacaoVars } from '../utils/nacao.js'
+
+const MotionLink = motion.create(Link)
+
+const item = {
+  oculto: { opacity: 0, y: 12 },
+  visivel: { opacity: 1, y: 0 },
+}
 
 export function PersonagemCard({ personagem }) {
   return (
-    <Link to={`/personagens/${personagem.id}`} className="personagem-card" style={estiloNacaoVars(personagem.nacao)}>
+    <MotionLink
+      to={`/personagens/${personagem.id}`}
+      className="personagem-card"
+      style={estiloNacaoVars(personagem.nacao)}
+      variants={item}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+    >
       <div className="personagem-card__avatar" aria-hidden="true">
         {personagem.nome.charAt(0)}
       </div>
@@ -11,6 +27,6 @@ export function PersonagemCard({ personagem }) {
       <p className="personagem-card__nacao">
         <span className="selo-nacao">{personagem.nacao}</span>
       </p>
-    </Link>
+    </MotionLink>
   )
 }

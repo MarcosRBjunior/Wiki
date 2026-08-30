@@ -15,6 +15,8 @@
   /* Marca (Aang, o Avatar mais recente, é o fio condutor da wiki) */
   --cor-primaria: var(--cor-ar);
   --cor-primaria-escura: #b97a1f;
+  /* Fixa (não inverte no dark mode) para manter contraste sobre --cor-primaria, que também não inverte */
+  --cor-sobre-primaria: #2b2118;
   --cor-fundo: #fdf9f1;
   --cor-superficie: #ffffff;
   --cor-borda: #e6dcc8;
@@ -86,7 +88,7 @@ a {
   margin: 0 auto 12px;
   border-radius: 50%;
   background: var(--cor-primaria);
-  color: #fff;
+  color: var(--cor-sobre-primaria);
   display: flex;
   align-items: center;
   justify-content: center;

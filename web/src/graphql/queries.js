@@ -19,7 +19,6 @@ export const PERSONAGEM_QUERY = gql`
       idade
       historia
       sonhos
-      imagem
     }
   }
 `

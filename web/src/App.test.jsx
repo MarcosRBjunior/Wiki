@@ -12,7 +12,6 @@ const personagemMock = {
   idade: 12,
   historia: 'Último Nômade do Ar.',
   sonhos: 'Trazer equilíbrio ao mundo.',
-  imagem: '/personagens/aang.png',
 }
 
 const mocks = [

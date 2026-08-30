@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { MockedProvider } from '@apollo/client/testing/react'
 import { describe, expect, test } from 'vitest'
@@ -17,7 +17,7 @@ const personagemMock = {
 const mocks = [
   {
     request: { query: PERSONAGENS_QUERY },
-    result: { data: { personagens: [] } },
+    result: { data: { personagens: [{ id: '1', nome: 'Aang', nacao: 'Nômades do Ar' }] } },
   },
   {
     request: { query: PERSONAGEM_QUERY, variables: { id: '1' } },
@@ -47,5 +47,14 @@ describe('App - rotas', () => {
 
     expect(await screen.findByRole('heading', { name: 'Aang' })).toBeInTheDocument()
     expect(screen.getByText(/nômades do ar · 12 anos/i)).toBeInTheDocument()
+  })
+
+  test('clicar em um card da listagem navega para a página de detalhe', async () => {
+    renderApp('/')
+
+    const link = await screen.findByRole('link', { name: /aang/i })
+    fireEvent.click(link)
+
+    expect(await screen.findByText(/detalhe do personagem 1/i)).toBeInTheDocument()
   })
 })

@@ -56,7 +56,7 @@ describe('App - rotas', () => {
     const link = await screen.findByRole('link', { name: /aang/i })
     fireEvent.click(link)
 
-    expect(await screen.findByRole('heading', { name: 'Aang' })).toBeInTheDocument()
+    expect(await screen.findByRole('link', { name: /voltar para a listagem/i })).toBeInTheDocument()
     expect(screen.getByText(/12 anos/i)).toBeInTheDocument()
   })
 })

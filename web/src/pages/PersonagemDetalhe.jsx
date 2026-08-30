@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
+import { motion } from 'framer-motion'
 import { PERSONAGEM_QUERY } from '../graphql/queries.js'
 import { estiloNacaoVars } from '../utils/nacao.js'
 
@@ -14,7 +15,13 @@ export function PersonagemDetalhe() {
   const { nome, nacao, idade, historia, sonhos } = data.personagem
 
   return (
-    <article className="personagem-detalhe" style={estiloNacaoVars(nacao)}>
+    <motion.article
+      className="personagem-detalhe"
+      style={estiloNacaoVars(nacao)}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
+    >
       <Link to="/" className="personagem-detalhe__voltar">&larr; Voltar para a listagem</Link>
       <header className="personagem-detalhe__cabecalho">
         <h2>{nome}</h2>
@@ -30,6 +37,6 @@ export function PersonagemDetalhe() {
         <h3>Sonhos</h3>
         <p>{sonhos}</p>
       </section>
-    </article>
+    </motion.article>
   )
 }

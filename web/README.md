@@ -1,16 +1,35 @@
-# React + Vite
+# Wiki de Fãs — Front-end (Avatar: A Lenda de Aang)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Front-end em React + Vite que consome a API GraphQL do projeto (`../api`).
+Veja `../projeto.md` para a visão geral do monorepo.
 
-Currently, two official plugins are available:
+## Rodando localmente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Este front-end precisa da API GraphQL rodando (por padrão em `http://localhost:4000/`).
 
-## React Compiler
+```bash
+# em um terminal, na pasta api/
+npm install
+npm start
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# em outro terminal, na pasta web/
+npm install
+cp .env.example .env   # ajuste VITE_GRAPHQL_URL se necessário
+npm run dev
+```
 
-## Expanding the Oxlint configuration
+A aplicação sobe em `http://localhost:5173/`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Scripts
+
+- `npm run dev` — servidor de desenvolvimento (Vite)
+- `npm run build` — build de produção
+- `npm run preview` — preview do build
+- `npm run lint` — lint (Oxlint)
+- `npm test` — testes (Vitest + Testing Library)
+
+## Stack
+
+- React 19 + React Router
+- Apollo Client (GraphQL)
+- Framer Motion (animações)

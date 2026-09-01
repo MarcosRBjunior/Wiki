@@ -12,12 +12,19 @@ const personagemMock = {
   idade: 12,
   historia: 'Último Nômade do Ar.',
   sonhos: 'Trazer equilíbrio ao mundo.',
+  imagem: '/personagens/aang.png',
 }
 
 const mocks = [
   {
     request: { query: PERSONAGENS_QUERY },
-    result: { data: { personagens: [{ id: '1', nome: 'Aang', nacao: 'Nômades do Ar' }] } },
+    result: {
+      data: {
+        personagens: [
+          { id: '1', nome: 'Aang', nacao: 'Nômades do Ar', imagem: '/personagens/aang.png' },
+        ],
+      },
+    },
   },
   {
     request: { query: PERSONAGEM_QUERY, variables: { id: '1' } },
@@ -39,7 +46,11 @@ describe('App - rotas', () => {
   test('rota "/" renderiza a listagem de personagens', async () => {
     renderApp('/')
 
-    expect(await screen.findByText(/carregando personagens/i)).toBeInTheDocument()
+    expect(screen.getByText(/carregando personagens/i)).toBeInTheDocument()
+
+    const link = await screen.findByRole('link', { name: /aang/i })
+    expect(link).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: /aang/i })).toHaveAttribute('src', '/personagens/aang.png')
   })
 
   test('rota "/personagens/:id" renderiza os dados do personagem', async () => {
@@ -48,6 +59,7 @@ describe('App - rotas', () => {
     expect(await screen.findByRole('heading', { name: 'Aang' })).toBeInTheDocument()
     expect(screen.getByText('Nômades do Ar')).toBeInTheDocument()
     expect(screen.getByText(/12 anos/i)).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: /aang/i })).toHaveAttribute('src', '/personagens/aang.png')
   })
 
   test('clicar em um card da listagem navega para a página de detalhe', async () => {

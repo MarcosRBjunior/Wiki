@@ -6,6 +6,7 @@ export const PERSONAGENS_QUERY = gql`
       id
       nome
       nacao
+      imagem
     }
   }
 `
@@ -19,6 +20,7 @@ export const PERSONAGEM_QUERY = gql`
       idade
       historia
       sonhos
+      imagem
     }
   }
 `

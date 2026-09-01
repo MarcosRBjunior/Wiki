@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Cabecalho } from './components/Cabecalho.jsx'
 import { ListaPersonagens } from './pages/ListaPersonagens.jsx'
 import { PersonagemDetalhe } from './pages/PersonagemDetalhe.jsx'
+import { NaoEncontrada } from './pages/NaoEncontrada.jsx'
 
 function App() {
   const location = useLocation()
@@ -22,6 +23,7 @@ function App() {
             <Routes location={location}>
               <Route path="/" element={<ListaPersonagens />} />
               <Route path="/personagens/:id" element={<PersonagemDetalhe />} />
+              <Route path="*" element={<NaoEncontrada />} />
             </Routes>
           </motion.div>
         </AnimatePresence>

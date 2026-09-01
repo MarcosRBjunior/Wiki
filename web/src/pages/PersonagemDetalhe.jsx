@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client/react'
 import { motion } from 'framer-motion'
 import { PERSONAGEM_QUERY } from '../graphql/queries.js'
 import { estiloNacaoVars } from '../utils/nacao.js'
+import { AvatarPersonagem } from '../components/AvatarPersonagem.jsx'
 
 export function PersonagemDetalhe() {
   const { id } = useParams()
@@ -12,7 +13,7 @@ export function PersonagemDetalhe() {
   if (error) return <p className="estado-info estado-info--erro">Não foi possível carregar o personagem.</p>
   if (!data.personagem) return <p className="estado-info">Personagem não encontrado.</p>
 
-  const { nome, nacao, idade, historia, sonhos } = data.personagem
+  const { nome, nacao, idade, historia, sonhos, imagem } = data.personagem
 
   return (
     <motion.article
@@ -24,6 +25,7 @@ export function PersonagemDetalhe() {
     >
       <Link to="/" className="personagem-detalhe__voltar">&larr; Voltar para a listagem</Link>
       <header className="personagem-detalhe__cabecalho">
+        <AvatarPersonagem nome={nome} imagem={imagem} className="personagem-detalhe__avatar" />
         <h2>{nome}</h2>
         <p className="personagem-detalhe__nacao">
           <span className="selo-nacao">{nacao}</span> · {idade} anos

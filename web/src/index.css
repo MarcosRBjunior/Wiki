@@ -162,6 +162,7 @@ button:focus-visible {
   justify-content: center;
   font-size: 24px;
   font-family: var(--fonte-titulo);
+  object-fit: cover;
 }
 
 .personagem-card h2 {
@@ -209,6 +210,21 @@ button:focus-visible {
 
 .personagem-detalhe__voltar:hover {
   text-decoration: underline;
+}
+
+.personagem-detalhe__avatar {
+  width: 88px;
+  height: 88px;
+  margin-bottom: 12px;
+  border-radius: 50%;
+  background: var(--cor-nacao-atual, var(--cor-primaria));
+  color: var(--cor-sobre-nacao-atual, var(--cor-sobre-primaria));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-family: var(--fonte-titulo);
+  object-fit: cover;
 }
 
 .personagem-detalhe__cabecalho h2 {

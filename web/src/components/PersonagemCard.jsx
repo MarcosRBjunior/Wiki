@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { estiloNacaoVars } from '../utils/nacao.js'
+import { AvatarPersonagem } from './AvatarPersonagem.jsx'
 
 const MotionLink = motion.create(Link)
 
@@ -20,9 +21,11 @@ export function PersonagemCard({ personagem }) {
       whileTap={{ scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
     >
-      <div className="personagem-card__avatar" aria-hidden="true">
-        {personagem.nome.charAt(0)}
-      </div>
+      <AvatarPersonagem
+        nome={personagem.nome}
+        imagem={personagem.imagem}
+        className="personagem-card__avatar"
+      />
       <h2>{personagem.nome}</h2>
       <p className="personagem-card__nacao">
         <span className="selo-nacao">{personagem.nacao}</span>

@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export function AvatarPersonagem({ nome, imagem, className }) {
   const [falhouCarregar, setFalhouCarregar] = useState(false)
+  const [imagemAnterior, setImagemAnterior] = useState(imagem)
 
-  useEffect(() => {
+  if (imagem !== imagemAnterior) {
+    setImagemAnterior(imagem)
     setFalhouCarregar(false)
-  }, [imagem])
+  }
 
   if (!imagem || falhouCarregar) {
     return (

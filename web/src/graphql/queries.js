@@ -6,6 +6,21 @@ export const PERSONAGENS_QUERY = gql`
       id
       nome
       nacao
+      imagem
+    }
+  }
+`
+
+export const PERSONAGEM_QUERY = gql`
+  query Personagem($id: ID!) {
+    personagem(id: $id) {
+      id
+      nome
+      nacao
+      idade
+      historia
+      sonhos
+      imagem
     }
   }
 `

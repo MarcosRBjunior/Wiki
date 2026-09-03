@@ -6,7 +6,7 @@
     "idade": 12,
     "historia": "Último Nômade do Ar e o Avatar mais recente, Aang passou cem anos congelado em um iceberg até ser encontrado por Katara e Sokka. Precisa aprender a dominar os quatro elementos para derrotar o Senhor do Fogo Ozai e trazer equilíbrio ao mundo.",
     "sonhos": "Restaurar a cultura dos Nômades do Ar e viver em paz, sem abrir mão de quem é para cumprir seu dever como Avatar.",
-    "imagem": "/personagens/aang.png"
+    "imagem": "/personagens/aang.jpg"
   },
   {
     "id": "2",
@@ -15,7 +15,7 @@
     "idade": 14,
     "historia": "Uma das últimas dobradoras d'água da Tribo do Sul, Katara se torna mentora e melhor amiga de Aang, ajudando-o em sua jornada enquanto busca vingança contra a Nação do Fogo pela morte de sua mãe.",
     "sonhos": "Tornar-se uma mestra da dobra d'água e ajudar a reconstruir sua tribo, protegendo quem ama.",
-    "imagem": "/personagens/katara.png"
+    "imagem": "/personagens/katara.jpg"
   },
   {
     "id": "3",

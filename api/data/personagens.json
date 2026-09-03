@@ -70,5 +70,86 @@
     "historia": "Líder das Guerreiras Kyoshi, um grupo de combatentes de elite na Ilha Kyoshi. Treina Sokka em suas técnicas de luta e se torna uma aliada fundamental do grupo.",
     "sonhos": "Proteger sua ilha e provar que as Guerreiras Kyoshi são páreo para qualquer exército.",
     "imagem": "/personagens/suki.png"
+  },
+  {
+    "id": "9",
+    "nome": "Ozai",
+    "nacao": "Nação do Fogo",
+    "idade": 45,
+    "historia": "Senhor do Fogo e pai de Zuko e Azula, usurpou o trono e baniu o próprio filho. Pretende usar o cometa de Sozin para queimar o Reino da Terra e se declarar Phoenix King.",
+    "sonhos": "Dominar os quatro cantos do mundo sob o poder absoluto da Nação do Fogo.",
+    "imagem": "/personagens/ozai.png"
+  },
+  {
+    "id": "10",
+    "nome": "Mai",
+    "nacao": "Nação do Fogo",
+    "idade": 16,
+    "historia": "Namorada de Zuko e amiga de infância de Azula, especialista em armas de arremesso escondidas nas mangas. Por trás da expressão entediada, esconde uma lealdade que a leva a escolher Zuko contra a própria princesa.",
+    "sonhos": "Ficar ao lado de Zuko, mesmo que isso signifique romper com tudo o que sua família espera dela.",
+    "imagem": "/personagens/mai.png"
+  },
+  {
+    "id": "11",
+    "nome": "Ty Lee",
+    "nacao": "Nação do Fogo",
+    "idade": 15,
+    "historia": "Acrobata que bloqueia chi com toques precisos, amiga de infância de Azula e Mai. Deixou o circo para se juntar ao grupo de Azula, mas acaba questionando essa lealdade.",
+    "sonhos": "Ser vista como alguém único, e não apenas mais uma das sextuplas idênticas de sua família.",
+    "imagem": "/personagens/tylee.png"
+  },
+  {
+    "id": "12",
+    "nome": "Bumi",
+    "nacao": "Reino da Terra",
+    "idade": 112,
+    "historia": "Rei de Omashu e amigo de infância de Aang, um dos maiores dobradores de terra do mundo. Sua loucura aparente esconde uma genialidade estratégica que ele usa para libertar sua cidade sozinho.",
+    "sonhos": "Provar que a loucura e a flexibilidade de pensamento são as verdadeiras armas contra um mundo rígido.",
+    "imagem": "/personagens/bumi.png"
+  },
+  {
+    "id": "13",
+    "nome": "Jet",
+    "nacao": "Reino da Terra",
+    "idade": 16,
+    "historia": "Líder dos Freedom Fighters, um grupo de órfãos de guerra que sabota tropas da Nação do Fogo. Sua obsessão por vingança o leva a métodos cada vez mais extremos, colocando-o em conflito com Katara e Aang.",
+    "sonhos": "Vingar a família e a vila perdidas para a Nação do Fogo, libertando o Reino da Terra do invasor.",
+    "imagem": "/personagens/jet.png"
+  },
+  {
+    "id": "14",
+    "nome": "Pakku",
+    "nacao": "Tribo da Água do Norte",
+    "idade": 61,
+    "historia": "Mestre da dobra d'água da Tribo do Norte, inicialmente se recusa a ensinar Katara por ela ser mulher. Depois de ser desafiado por ela, reconhece seu talento e se torna um de seus mestres.",
+    "sonhos": "Preservar as tradições da Tribo da Água do Norte, mesmo tendo que abrir mão de alguns costumes ultrapassados.",
+    "imagem": "/personagens/pakku.png"
+  },
+  {
+    "id": "15",
+    "nome": "Yue",
+    "nacao": "Tribo da Água do Norte",
+    "idade": 16,
+    "historia": "Princesa da Tribo da Água do Norte, ligada ao Espírito da Lua desde que foi salva por ele ao nascer. Se sacrifica para restaurar o espírito e proteger seu povo do ataque da Nação do Fogo.",
+    "sonhos": "Cumprir seu dever com o povo e, ao mesmo tempo, viver o amor que sente por Sokka.",
+    "imagem": "/personagens/yue.png"
+  },
+  {
+    "id": "16",
+    "nome": "Hakoda",
+    "nacao": "Tribo da Água do Sul",
+    "idade": 38,
+    "historia": "Pai de Katara e Sokka e chefe da Tribo da Água do Sul, lidera os guerreiros da tribo em uma campanha contra a Nação do Fogo enquanto os filhos viajam com o Avatar.",
+    "sonhos": "Reconstruir a Tribo da Água do Sul e ver os filhos crescerem livres da guerra.",
+    "imagem": "/personagens/hakoda.png"
+  },
+  {
+    "id": "17",
+    "nome": "Gyatso",
+    "nacao": "Nômades do Ar",
+    "idade": 84,
+    "historia": "Monge e mestre de Aang no Templo do Ar do Sul, figura paterna que o criou com carinho e bom humor. Morreu defendendo o templo quando a Nação do Fogo exterminou os Nômades do Ar.",
+    "sonhos": "Guiar Aang para que ele aceitasse seu papel de Avatar sem perder a leveza e a alegria de ser um Nômade do Ar.",
+    "imagem": "/personagens/gyatso.png"
   }
 ]

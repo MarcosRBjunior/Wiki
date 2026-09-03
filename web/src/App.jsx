@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Cabecalho } from './components/Cabecalho.jsx'
+import { IconesNacao } from './components/IconesNacao.jsx'
 import { ListaPersonagens } from './pages/ListaPersonagens.jsx'
 import { PersonagemDetalhe } from './pages/PersonagemDetalhe.jsx'
 import { NaoEncontrada } from './pages/NaoEncontrada.jsx'
@@ -10,6 +11,7 @@ function App() {
 
   return (
     <>
+      <IconesNacao />
       <Cabecalho />
       <main className="conteudo">
         <AnimatePresence mode="wait">

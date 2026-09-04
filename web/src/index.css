@@ -126,6 +126,11 @@ svg {
 }
 
 .cabecalho__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
   max-width: 1024px;
   margin: 0 auto;
   padding: 16px;
@@ -175,6 +180,24 @@ svg {
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
+}
+
+.cabecalho__nav {
+  display: flex;
+  gap: 22px;
+}
+
+.cabecalho__nav a {
+  color: var(--cor-texto-suave);
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  letter-spacing: .02em;
+}
+
+.cabecalho__nav a:hover {
+  color: var(--cor-primaria-escura);
+  text-decoration: underline;
 }
 
 .conteudo {
@@ -491,6 +514,286 @@ svg {
   line-height: 1.75;
   font-size: 16px;
   color: var(--cor-texto);
+}
+
+/* Mural principal */
+
+.mural {
+  display: flex;
+  flex-direction: column;
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.mural__hero {
+  text-align: center;
+  padding: 12px 0 8px;
+}
+
+.mural__emblema {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+}
+
+.mural__hero h1 {
+  margin: 0 0 10px;
+  font-family: var(--fonte-titulo-decorativa);
+  font-size: clamp(26px, 4vw, 38px);
+}
+
+.mural__hero p {
+  margin: 0 auto;
+  max-width: 46ch;
+  color: var(--cor-texto-suave);
+}
+
+.mural__divisor {
+  margin: 36px 0;
+}
+
+.mural__bloco {
+  padding: 4px 0;
+}
+
+.mural__olho {
+  margin: 0 0 20px;
+  font-family: var(--fonte-titulo);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+  text-align: center;
+}
+
+.mural__olho--sub {
+  margin-top: 34px;
+}
+
+.mural__link {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.mural__link:hover {
+  text-decoration: underline;
+}
+
+/* Destaque */
+
+.mural__bloco--destaque {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px 4px 20px 20px;
+  box-shadow: var(--sombra);
+  padding: 28px 24px;
+}
+
+.mural__destaque-corpo {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.mural__destaque-avatar {
+  flex: none;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  border: 3px solid var(--dourado);
+  box-shadow: var(--sombra);
+  object-fit: cover;
+}
+
+.mural__destaque-corpo h2 {
+  margin: 0 0 8px;
+}
+
+.mural__destaque-texto {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  line-height: 1.7;
+}
+
+/* Quatro nações — blocos alternados, no espírito do mural de referência */
+
+.mural__nacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.mural__nacao-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 4px;
+  border-top: 1px solid var(--cor-borda);
+}
+
+.mural__nacao-card--invertido {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.mural__nacao-icone {
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cor-nacao-atual);
+  background: color-mix(in oklch, var(--cor-nacao-atual) 16%, var(--cor-superficie));
+  border: 2px solid var(--cor-nacao-atual);
+}
+
+.mural__nacao-icone svg {
+  width: 30px;
+  height: 30px;
+}
+
+.mural__nacao-card h3 {
+  margin: 0 0 6px;
+  color: var(--cor-nacao-atual);
+}
+
+.mural__nacao-card p {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  line-height: 1.6;
+}
+
+.mural__nacao-card .mural__link {
+  color: var(--cor-nacao-atual);
+}
+
+/* Grades de cards (lugares, celebrações) */
+
+.mural__grade-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.mural__card {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 4px 4px 14px 14px;
+  padding: 18px;
+  box-shadow: var(--sombra);
+}
+
+.mural__card .selo-nacao {
+  margin-bottom: 10px;
+}
+
+.mural__card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.mural__card p {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Linha do tempo (datas marcantes) */
+
+.mural__linha-tempo {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 14px;
+  border-left: 2px solid var(--cor-borda);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mural__linha-tempo li {
+  position: relative;
+  display: flex;
+  gap: 16px;
+}
+
+.mural__linha-tempo-marca {
+  position: absolute;
+  left: -20px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dourado);
+  box-shadow: 0 0 0 3px var(--cor-fundo);
+}
+
+.mural__linha-tempo h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.mural__linha-tempo p {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Atalhos de personagens */
+
+.mural__atalhos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mural__atalho {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font-weight: 700;
+  font-size: 13.5px;
+  text-decoration: none;
+  transition: border-color .15s ease, color .15s ease;
+}
+
+.mural__atalho:hover {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria-escura);
+}
+
+.mural__bloco--comunidade {
+  text-align: center;
+}
+
+.mural__bloco--comunidade p {
+  color: var(--cor-texto-suave);
+  margin: 0 auto;
+  max-width: 44ch;
+}
+
+@media (max-width: 560px) {
+  .mural__nacao-card,
+  .mural__nacao-card--invertido {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .mural__destaque-corpo {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {

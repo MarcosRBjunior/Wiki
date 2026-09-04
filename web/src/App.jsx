@@ -4,6 +4,7 @@ import { Cabecalho } from './components/Cabecalho.jsx'
 import { IconesNacao } from './components/IconesNacao.jsx'
 import { ListaPersonagens } from './pages/ListaPersonagens.jsx'
 import { PersonagemDetalhe } from './pages/PersonagemDetalhe.jsx'
+import { MuralPrincipal } from './pages/MuralPrincipal.jsx'
 import { NaoEncontrada } from './pages/NaoEncontrada.jsx'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Routes location={location}>
               <Route path="/" element={<ListaPersonagens />} />
               <Route path="/personagens/:id" element={<PersonagemDetalhe />} />
+              <Route path="/mural" element={<MuralPrincipal />} />
               <Route path="*" element={<NaoEncontrada />} />
             </Routes>
           </motion.div>

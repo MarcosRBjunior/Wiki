@@ -151,5 +151,68 @@
     "historia": "Monge e mestre de Aang no Templo do Ar do Sul, figura paterna que o criou com carinho e bom humor. Morreu defendendo o templo quando a Nação do Fogo exterminou os Nômades do Ar.",
     "sonhos": "Guiar Aang para que ele aceitasse seu papel de Avatar sem perder a leveza e a alegria de ser um Nômade do Ar.",
     "imagem": "/personagens/gyatso.png"
+  },
+  {
+    "id": "18",
+    "nome": "Avatar Roku",
+    "nacao": "Nação do Fogo",
+    "idade": 58,
+    "historia": "Avatar anterior a Aang e dominador de fogo nascido na Nação do Fogo, amigo de infância de Sozin antes de este se tornar Senhor do Fogo. Morreu na erupção do Monte Caldeira sem conseguir deter os planos expansionistas do amigo.",
+    "sonhos": "Reparar, mesmo após a morte, o erro de não ter impedido Sozin a tempo, orientando Aang a agir sem hesitar.",
+    "imagem": "/personagens/roku.png"
+  },
+  {
+    "id": "19",
+    "nome": "Avatar Kyoshi",
+    "nacao": "Reino da Terra",
+    "idade": 230,
+    "historia": "Avatar que viveu séculos antes de Roku, dominadora de terra e a mais alta e longeva de todos os Avatares. Fundou a Ilha Kyoshi e criou as Guerreiras Kyoshi ao separar a península do continente para proteger seu povo.",
+    "sonhos": "Garantir que a justiça seja feita com firmeza, mesmo que isso exija métodos duros e decisões implacáveis.",
+    "imagem": "/personagens/kyoshi.png"
+  },
+  {
+    "id": "20",
+    "nome": "June",
+    "nacao": "Reino da Terra",
+    "idade": 24,
+    "historia": "Caçadora de recompensas independente que viaja com seu preguiçoso-urso Nyla, farejador capaz de rastrear qualquer um pelo cheiro. É contratada por Zuko e Iroh para localizar o Avatar.",
+    "sonhos": "Seguir seu próprio código, sem se prender a lados da guerra, cobrando bem por cada trabalho aceito.",
+    "imagem": "/personagens/june.png"
+  },
+  {
+    "id": "21",
+    "nome": "Hama",
+    "nacao": "Tribo da Água do Sul",
+    "idade": 80,
+    "historia": "Última dominadora de água nascida na Tribo do Sul antes de Katara, foi capturada e presa pela Nação do Fogo, onde desenvolveu o bloodbending para escapar. Décadas depois, usa a técnica para se vingar de aldeões inocentes.",
+    "sonhos": "Ver a Tribo da Água do Sul restaurada, ainda que sua sede de vingança a tenha corrompido pelo caminho.",
+    "imagem": "/personagens/hama.png"
+  },
+  {
+    "id": "22",
+    "nome": "Piandao",
+    "nacao": "Nação do Fogo",
+    "idade": 60,
+    "historia": "Mestre espadachim da Nação do Fogo que se recusou a lutar na guerra e vive isolado ensinando sua arte. Aceita treinar Sokka ao reconhecer nele um verdadeiro guerreiro, mesmo sem domínio de elemento.",
+    "sonhos": "Preservar a arte da espada como algo maior que a guerra, passando seu conhecimento a quem for digno dele.",
+    "imagem": "/personagens/piandao.png"
+  },
+  {
+    "id": "23",
+    "nome": "Combustion Man",
+    "nacao": "Nação do Fogo",
+    "idade": 30,
+    "historia": "Assassino profissional contratado por Zuko e depois por Azula para eliminar o Avatar, capaz de gerar explosões concentrando energia na cicatriz em sua testa. Persegue o grupo de Aang sem descanso nem palavras.",
+    "sonhos": "Cumprir cada contrato até o fim, custe o que custar, sem desviar do alvo.",
+    "imagem": "/personagens/combustionman.png"
+  },
+  {
+    "id": "24",
+    "nome": "Jeong Jeong",
+    "nacao": "Nação do Fogo",
+    "idade": 50,
+    "historia": "Um dos poucos desertores da Nação do Fogo, dominador de fogo que passou a temer as próprias chamas por ver o dano que causam. Aceita, a contragosto, dar as primeiras lições de domínio do fogo a Aang.",
+    "sonhos": "Impedir que outros repitam os erros que ele viu o fogo causar, mesmo que isso o torne um fugitivo solitário.",
+    "imagem": "/personagens/jeongjeong.png"
   }
 ]

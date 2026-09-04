@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client/react'
 import { motion } from 'framer-motion'
 import { PERSONAGENS_QUERY } from '../graphql/queries.js'
@@ -12,9 +12,18 @@ const grade = {
   },
 }
 
+const CATEGORIAS_VALIDAS = new Set(['agua', 'fogo', 'terra', 'ar'])
+
 export function ListaPersonagens() {
   const { data, loading, error } = useQuery(PERSONAGENS_QUERY)
-  const [filtro, setFiltro] = useState(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filtroUrl = searchParams.get('nacao')
+  const filtro = CATEGORIAS_VALIDAS.has(filtroUrl) ? filtroUrl : null
+
+  function selecionarFiltro(categoria) {
+    if (categoria) setSearchParams({ nacao: categoria })
+    else setSearchParams({})
+  }
 
   if (loading) return <p className="estado-info">Carregando personagens...</p>
   if (error) return <p className="estado-info estado-info--erro">Não foi possível carregar os personagens.</p>
@@ -29,7 +38,7 @@ export function ListaPersonagens() {
         <button
           type="button"
           className={`filtro-nacao__botao${filtro === null ? ' filtro-nacao__botao--ativo' : ''}`}
-          onClick={() => setFiltro(null)}
+          onClick={() => selecionarFiltro(null)}
         >
           Todos
         </button>
@@ -39,7 +48,7 @@ export function ListaPersonagens() {
             type="button"
             className={`filtro-nacao__botao${filtro === categoria ? ' filtro-nacao__botao--ativo' : ''}`}
             style={{ '--cor-filtro': `var(${corVar})` }}
-            onClick={() => setFiltro(categoria)}
+            onClick={() => selecionarFiltro(categoria)}
           >
             <svg aria-hidden="true"><use href={`#icon-${categoria}`} /></svg>
             {rotulo}

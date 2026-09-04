@@ -34,7 +34,7 @@ export function PersonagemDetalhe() {
             <svg><use href={icone} /></svg>
           </span>
         )}
-        <AvatarPersonagem nome={nome} imagem={imagem} className="personagem-detalhe__avatar" />
+        <AvatarPersonagem nome={nome} imagem={imagem} nacao={nacao} className="personagem-detalhe__avatar" />
         <h2>{nome}</h2>
         <p className="personagem-detalhe__nacao">
           <span className="selo-nacao">

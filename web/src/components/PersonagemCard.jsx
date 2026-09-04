@@ -31,6 +31,7 @@ export function PersonagemCard({ personagem }) {
       <AvatarPersonagem
         nome={personagem.nome}
         imagem={personagem.imagem}
+        nacao={personagem.nacao}
         className="personagem-card__avatar"
       />
       <h2>{personagem.nome}</h2>

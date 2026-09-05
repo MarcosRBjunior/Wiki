@@ -1,4 +1,8 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+
+const MotionLink = motion.create(Link)
+const springNav = { type: 'spring', stiffness: 400, damping: 25 }
 
 export function Cabecalho() {
   return (
@@ -14,8 +18,12 @@ export function Cabecalho() {
           <p className="cabecalho__subtitulo">Avatar · A Lenda de Aang</p>
         </div>
         <nav className="cabecalho__nav" aria-label="Navegação principal">
-          <Link to="/">Personagens</Link>
-          <Link to="/mural">Mural</Link>
+          <MotionLink to="/" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+            Personagens
+          </MotionLink>
+          <MotionLink to="/mural" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+            Mural
+          </MotionLink>
         </nav>
       </div>
     </header>

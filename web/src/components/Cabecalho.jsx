@@ -18,10 +18,10 @@ export function Cabecalho() {
           <p className="cabecalho__subtitulo">Avatar · A Lenda de Aang</p>
         </div>
         <nav className="cabecalho__nav" aria-label="Navegação principal">
-          <MotionLink to="/" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+          <MotionLink to="/personagens" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
             Personagens
           </MotionLink>
-          <MotionLink to="/mural" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+          <MotionLink to="/" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
             Mural
           </MotionLink>
         </nav>

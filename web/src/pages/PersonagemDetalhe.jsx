@@ -95,7 +95,7 @@ export function PersonagemDetalhe() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
         >
-          <Link to="/" className="personagem-detalhe__voltar">
+          <Link to="/personagens" className="personagem-detalhe__voltar">
             <svg aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
             Voltar para a listagem
           </Link>

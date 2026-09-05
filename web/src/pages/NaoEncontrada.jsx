@@ -8,7 +8,7 @@ export function NaoEncontrada() {
     <div className="estado-info">
       <p>Página não encontrada.</p>
       <MotionLink
-        to="/"
+        to="/personagens"
         whileHover={{ x: -4 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: 'spring', stiffness: 400, damping: 25 }}

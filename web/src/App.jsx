@@ -24,9 +24,9 @@ function App() {
             transition={{ duration: 0.15 }}
           >
             <Routes location={location}>
-              <Route path="/" element={<ListaPersonagens />} />
+              <Route path="/" element={<MuralPrincipal />} />
+              <Route path="/personagens" element={<ListaPersonagens />} />
               <Route path="/personagens/:id" element={<PersonagemDetalhe />} />
-              <Route path="/mural" element={<MuralPrincipal />} />
               <Route path="*" element={<NaoEncontrada />} />
             </Routes>
           </motion.div>

@@ -43,8 +43,14 @@ function renderApp(rota) {
 }
 
 describe('App - rotas', () => {
-  test('rota "/" renderiza a listagem de personagens', async () => {
+  test('rota "/" renderiza o mural principal', async () => {
     renderApp('/')
+
+    expect(await screen.findByRole('heading', { name: /mural do mundo de avatar/i })).toBeInTheDocument()
+  })
+
+  test('rota "/personagens" renderiza a listagem de personagens', async () => {
+    renderApp('/personagens')
 
     expect(screen.getByText(/carregando personagens/i)).toBeInTheDocument()
 
@@ -63,7 +69,7 @@ describe('App - rotas', () => {
   })
 
   test('clicar em um card da listagem navega para a página de detalhe', async () => {
-    renderApp('/')
+    renderApp('/personagens')
 
     const link = await screen.findByRole('link', { name: /aang/i })
     fireEvent.click(link)

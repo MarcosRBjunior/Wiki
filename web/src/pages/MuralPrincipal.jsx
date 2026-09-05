@@ -151,7 +151,7 @@ export function MuralPrincipal() {
               <div>
                 <h3>{nome}</h3>
                 <p>{resumo}</p>
-                <Link to={`/?nacao=${categoria}`} className="mural__link">
+                <Link to={`/personagens?nacao=${categoria}`} className="mural__link">
                   Ver personagens →
                 </Link>
               </div>

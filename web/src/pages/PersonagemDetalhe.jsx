@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { PERSONAGEM_QUERY } from '../graphql/queries.js'
 import { estiloNacaoVars, iconeNacao } from '../utils/nacao.js'
+import { ROTA_PERSONAGENS } from '../utils/rotas.js'
 import { AvatarPersonagem } from '../components/AvatarPersonagem.jsx'
 
 function SecaoDetalhe({ titulo, texto, fechada, onAlternar }) {
@@ -95,7 +96,7 @@ export function PersonagemDetalhe() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
         >
-          <Link to="/personagens" className="personagem-detalhe__voltar">
+          <Link to={ROTA_PERSONAGENS} className="personagem-detalhe__voltar">
             <svg aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
             Voltar para a listagem
           </Link>

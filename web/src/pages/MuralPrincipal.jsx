@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { PERSONAGEM_QUERY } from '../graphql/queries.js'
 import { AvatarPersonagem } from '../components/AvatarPersonagem.jsx'
 import { NACOES_FILTRO } from '../utils/nacao.js'
+import { ROTA_PERSONAGENS, rotaPersonagem } from '../utils/rotas.js'
 
 const NACOES_MURAL = [
   {
@@ -104,7 +105,7 @@ function DestaquePersonagem() {
         <div>
           <h2>{nome}</h2>
           <p className="mural__destaque-texto">{historia}</p>
-          <Link to={`/personagens/${id}`} className="mural__link">Ver perfil completo →</Link>
+          <Link to={rotaPersonagem(id)} className="mural__link">Ver perfil completo →</Link>
         </div>
       </div>
     </motion.section>
@@ -151,7 +152,7 @@ export function MuralPrincipal() {
               <div>
                 <h3>{nome}</h3>
                 <p>{resumo}</p>
-                <Link to={`/personagens?nacao=${categoria}`} className="mural__link">
+                <Link to={`${ROTA_PERSONAGENS}?nacao=${categoria}`} className="mural__link">
                   Ver personagens →
                 </Link>
               </div>
@@ -239,7 +240,7 @@ export function MuralPrincipal() {
         <p className="mural__olho">Personagens principais</p>
         <div className="mural__atalhos">
           {PERSONAGENS_PRINCIPAIS.map(({ id, nome }) => (
-            <Link key={id} to={`/personagens/${id}`} className="mural__atalho">
+            <Link key={id} to={rotaPersonagem(id)} className="mural__atalho">
               {nome}
             </Link>
           ))}
@@ -247,7 +248,7 @@ export function MuralPrincipal() {
         <p className="mural__olho mural__olho--sub">Avatares anteriores</p>
         <div className="mural__atalhos">
           {AVATARES_ANTERIORES.map(({ id, nome }) => (
-            <Link key={id} to={`/personagens/${id}`} className="mural__atalho">
+            <Link key={id} to={rotaPersonagem(id)} className="mural__atalho">
               {nome}
             </Link>
           ))}

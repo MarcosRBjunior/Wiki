@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { estiloNacaoVars, iconeNacao } from '../utils/nacao.js'
+import { rotaPersonagem } from '../utils/rotas.js'
 import { AvatarPersonagem } from './AvatarPersonagem.jsx'
 
 const MotionLink = motion.create(Link)
@@ -15,7 +16,7 @@ export function PersonagemCard({ personagem }) {
 
   return (
     <MotionLink
-      to={`/personagens/${personagem.id}`}
+      to={rotaPersonagem(personagem.id)}
       className="personagem-card"
       style={estiloNacaoVars(personagem.nacao)}
       variants={item}

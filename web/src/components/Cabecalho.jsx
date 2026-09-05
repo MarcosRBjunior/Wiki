@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { ROTA_MURAL, ROTA_PERSONAGENS } from '../utils/rotas.js'
 
 const MotionLink = motion.create(Link)
 const springNav = { type: 'spring', stiffness: 400, damping: 25 }
@@ -9,7 +10,7 @@ export function Cabecalho() {
     <header className="cabecalho">
       <div className="cabecalho__interior">
         <div className="cabecalho__identidade">
-          <Link to="/" className="cabecalho__marca">
+          <Link to={ROTA_MURAL} className="cabecalho__marca">
             <span className="cabecalho__emblema" aria-hidden="true">
               <span className="cabecalho__emblema-ponto" />
             </span>
@@ -18,10 +19,10 @@ export function Cabecalho() {
           <p className="cabecalho__subtitulo">Avatar · A Lenda de Aang</p>
         </div>
         <nav className="cabecalho__nav" aria-label="Navegação principal">
-          <MotionLink to="/personagens" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+          <MotionLink to={ROTA_PERSONAGENS} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
             Personagens
           </MotionLink>
-          <MotionLink to="/" whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+          <MotionLink to={ROTA_MURAL} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
             Mural
           </MotionLink>
         </nav>

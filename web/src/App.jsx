@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Cabecalho } from './components/Cabecalho.jsx'
 import { IconesNacao } from './components/IconesNacao.jsx'
@@ -6,6 +6,7 @@ import { ListaPersonagens } from './pages/ListaPersonagens.jsx'
 import { PersonagemDetalhe } from './pages/PersonagemDetalhe.jsx'
 import { MuralPrincipal } from './pages/MuralPrincipal.jsx'
 import { NaoEncontrada } from './pages/NaoEncontrada.jsx'
+import { ROTA_MURAL, ROTA_PERSONAGENS } from './utils/rotas.js'
 
 function App() {
   const location = useLocation()
@@ -24,9 +25,10 @@ function App() {
             transition={{ duration: 0.15 }}
           >
             <Routes location={location}>
-              <Route path="/" element={<MuralPrincipal />} />
-              <Route path="/personagens" element={<ListaPersonagens />} />
-              <Route path="/personagens/:id" element={<PersonagemDetalhe />} />
+              <Route path={ROTA_MURAL} element={<MuralPrincipal />} />
+              <Route path={ROTA_PERSONAGENS} element={<ListaPersonagens />} />
+              <Route path={`${ROTA_PERSONAGENS}/:id`} element={<PersonagemDetalhe />} />
+              <Route path="/mural" element={<Navigate to={ROTA_MURAL} replace />} />
               <Route path="*" element={<NaoEncontrada />} />
             </Routes>
           </motion.div>

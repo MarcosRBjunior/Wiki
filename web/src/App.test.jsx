@@ -15,6 +15,16 @@ const personagemMock = {
   imagem: '/personagens/aang.png',
 }
 
+const zukoMock = {
+  id: '5',
+  nome: 'Zuko',
+  nacao: 'Nação do Fogo',
+  idade: 16,
+  historia: 'Príncipe exilado em busca da própria honra.',
+  sonhos: 'Restaurar seu lugar na Nação do Fogo.',
+  imagem: '/personagens/zuko.png',
+}
+
 const mocks = [
   {
     request: { query: PERSONAGENS_QUERY },
@@ -29,6 +39,10 @@ const mocks = [
   {
     request: { query: PERSONAGEM_QUERY, variables: { id: '1' } },
     result: { data: { personagem: personagemMock } },
+  },
+  {
+    request: { query: PERSONAGEM_QUERY, variables: { id: '5' } },
+    result: { data: { personagem: zukoMock } },
   },
 ]
 
@@ -45,6 +59,13 @@ function renderApp(rota) {
 describe('App - rotas', () => {
   test('rota "/" renderiza o mural principal', async () => {
     renderApp('/')
+
+    expect(await screen.findByRole('heading', { name: /mural do mundo de avatar/i })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Zuko' })).toBeInTheDocument()
+  })
+
+  test('rota "/mural" redireciona para o mural', async () => {
+    renderApp('/mural')
 
     expect(await screen.findByRole('heading', { name: /mural do mundo de avatar/i })).toBeInTheDocument()
   })

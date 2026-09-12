@@ -11,12 +11,12 @@ if (!SEGREDO) {
 const EXPIRACAO = '7d';
 
 export function assinarToken(usuarioId) {
-  return jwt.sign({ usuarioId }, SEGREDO, { expiresIn: EXPIRACAO });
+  return jwt.sign({ usuarioId }, SEGREDO, { expiresIn: EXPIRACAO, algorithm: 'HS256' });
 }
 
 export function verificarToken(token) {
   try {
-    return jwt.verify(token, SEGREDO).usuarioId;
+    return jwt.verify(token, SEGREDO, { algorithms: ['HS256'] }).usuarioId;
   } catch {
     return null;
   }

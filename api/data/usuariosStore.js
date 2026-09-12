@@ -4,8 +4,12 @@ import { db } from './db.js';
 
 const SALT_ROUNDS = 10;
 
+function normalizarEmail(email) {
+  return typeof email === 'string' ? email.trim().toLowerCase() : email;
+}
+
 export function buscarUsuarioPorEmail(email) {
-  return db.prepare('SELECT * FROM usuarios WHERE email = ?').get(email) ?? null;
+  return db.prepare('SELECT * FROM usuarios WHERE email = ?').get(normalizarEmail(email)) ?? null;
 }
 
 export function buscarUsuarioPorId(id) {
@@ -15,7 +19,7 @@ export function buscarUsuarioPorId(id) {
 export function criarUsuario({ email, senha }) {
   const usuario = {
     id: crypto.randomUUID(),
-    email,
+    email: normalizarEmail(email),
     senha_hash: bcrypt.hashSync(senha, SALT_ROUNDS),
     criado_em: new Date().toISOString(),
   };

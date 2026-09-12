@@ -20,3 +20,12 @@ db.exec(`
     imagem TEXT NOT NULL
   )
 `);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS usuarios (
+    id TEXT PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    senha_hash TEXT NOT NULL,
+    criado_em TEXT NOT NULL
+  )
+`);

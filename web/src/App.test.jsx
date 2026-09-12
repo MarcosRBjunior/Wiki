@@ -1,9 +1,15 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { MockedProvider } from '@apollo/client/testing/react'
-import { describe, expect, test } from 'vitest'
+import { GraphQLError } from 'graphql'
+import { beforeEach, describe, expect, test } from 'vitest'
 import App from './App.jsx'
-import { PERSONAGENS_QUERY, PERSONAGEM_QUERY } from './graphql/queries.js'
+import {
+  PERSONAGENS_QUERY,
+  PERSONAGEM_QUERY,
+  CRIAR_CONTA_MUTATION,
+  LOGIN_MUTATION,
+} from './graphql/queries.js'
 
 const personagemMock = {
   id: '1',
@@ -46,9 +52,9 @@ const mocks = [
   },
 ]
 
-function renderApp(rota) {
+function renderApp(rota, mocksExtras = []) {
   return render(
-    <MockedProvider mocks={mocks}>
+    <MockedProvider mocks={[...mocks, ...mocksExtras]}>
       <MemoryRouter initialEntries={[rota]}>
         <App />
       </MemoryRouter>
@@ -97,5 +103,86 @@ describe('App - rotas', () => {
 
     expect(await screen.findByRole('link', { name: /voltar para a listagem/i })).toBeInTheDocument()
     expect(screen.getByText(/12 anos/i)).toBeInTheDocument()
+  })
+})
+
+const usuarioMock = { id: 'u1', email: 'ana@teste.com' }
+
+describe('App - cadastro e login', () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
+  test('cadastro cria conta e autentica automaticamente', async () => {
+    const mocksExtras = [
+      {
+        request: { query: CRIAR_CONTA_MUTATION, variables: { email: 'ana@teste.com', senha: 'senha-valida-123' } },
+        result: { data: { criarConta: { token: 'token-fake', usuario: usuarioMock } } },
+      },
+    ]
+    renderApp('/cadastro', mocksExtras)
+
+    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'ana@teste.com' } })
+    fireEvent.change(screen.getByLabelText(/senha/i), { target: { value: 'senha-valida-123' } })
+    fireEvent.click(screen.getByRole('button', { name: /criar conta/i }))
+
+    expect(await screen.findByText('ana@teste.com')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /sair/i })).toBeInTheDocument()
+  })
+
+  test('login com credenciais corretas autentica e reflete no cabeçalho', async () => {
+    const mocksExtras = [
+      {
+        request: { query: LOGIN_MUTATION, variables: { email: 'ana@teste.com', senha: 'senha-valida-123' } },
+        result: { data: { login: { token: 'token-fake', usuario: usuarioMock } } },
+      },
+    ]
+    renderApp('/login', mocksExtras)
+
+    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'ana@teste.com' } })
+    fireEvent.change(screen.getByLabelText(/senha/i), { target: { value: 'senha-valida-123' } })
+    fireEvent.click(screen.getByRole('button', { name: /^entrar$/i }))
+
+    expect(await screen.findByText('ana@teste.com')).toBeInTheDocument()
+  })
+
+  test('login com senha errada mostra mensagem de erro', async () => {
+    const mocksExtras = [
+      {
+        request: { query: LOGIN_MUTATION, variables: { email: 'ana@teste.com', senha: 'senha-errada' } },
+        result: {
+          errors: [
+            new GraphQLError('E-mail ou senha inválidos.', { extensions: { code: 'CREDENCIAIS_INVALIDAS' } }),
+          ],
+        },
+      },
+    ]
+    renderApp('/login', mocksExtras)
+
+    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'ana@teste.com' } })
+    fireEvent.change(screen.getByLabelText(/senha/i), { target: { value: 'senha-errada' } })
+    fireEvent.click(screen.getByRole('button', { name: /^entrar$/i }))
+
+    expect(await screen.findByRole('alert')).toHaveTextContent(/e-mail ou senha inválidos/i)
+  })
+
+  test('sair encerra a sessão e o cabeçalho volta ao estado deslogado', async () => {
+    const mocksExtras = [
+      {
+        request: { query: LOGIN_MUTATION, variables: { email: 'ana@teste.com', senha: 'senha-valida-123' } },
+        result: { data: { login: { token: 'token-fake', usuario: usuarioMock } } },
+      },
+    ]
+    renderApp('/login', mocksExtras)
+
+    fireEvent.change(screen.getByLabelText(/e-mail/i), { target: { value: 'ana@teste.com' } })
+    fireEvent.change(screen.getByLabelText(/senha/i), { target: { value: 'senha-valida-123' } })
+    fireEvent.click(screen.getByRole('button', { name: /^entrar$/i }))
+
+    await screen.findByText('ana@teste.com')
+
+    fireEvent.click(screen.getByRole('button', { name: /sair/i }))
+
+    await waitFor(() => expect(screen.getByRole('link', { name: /^entrar$/i })).toBeInTheDocument())
   })
 })

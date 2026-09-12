@@ -24,3 +24,27 @@ export const PERSONAGEM_QUERY = gql`
     }
   }
 `
+
+export const CRIAR_CONTA_MUTATION = gql`
+  mutation CriarConta($email: String!, $senha: String!) {
+    criarConta(email: $email, senha: $senha) {
+      token
+      usuario {
+        id
+        email
+      }
+    }
+  }
+`
+
+export const LOGIN_MUTATION = gql`
+  mutation Login($email: String!, $senha: String!) {
+    login(email: $email, senha: $senha) {
+      token
+      usuario {
+        id
+        email
+      }
+    }
+  }
+`

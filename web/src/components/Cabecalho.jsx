@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ROTA_MURAL, ROTA_PERSONAGENS } from '../utils/rotas.js'
+import { ROTA_MURAL, ROTA_PERSONAGENS, ROTA_LOGIN, ROTA_CADASTRO } from '../utils/rotas.js'
 import { useTema } from '../utils/tema.js'
+import { useAutenticacao } from '../utils/autenticacao.js'
 
 const MotionLink = motion.create(Link)
 const springNav = { type: 'spring', stiffness: 400, damping: 25 }
@@ -30,6 +31,45 @@ function BotaoTema() {
   )
 }
 
+function NavAutenticacao() {
+  const { usuario, sair } = useAutenticacao()
+  const navigate = useNavigate()
+
+  if (!usuario) {
+    return (
+      <>
+        <MotionLink to={ROTA_LOGIN} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+          Entrar
+        </MotionLink>
+        <MotionLink to={ROTA_CADASTRO} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+          Criar conta
+        </MotionLink>
+      </>
+    )
+  }
+
+  function aoSair() {
+    sair()
+    navigate(ROTA_MURAL)
+  }
+
+  return (
+    <>
+      <span className="cabecalho__usuario">{usuario.email}</span>
+      <motion.button
+        type="button"
+        className="cabecalho__botao-sair"
+        onClick={aoSair}
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.95 }}
+        transition={springNav}
+      >
+        Sair
+      </motion.button>
+    </>
+  )
+}
+
 export function Cabecalho() {
   return (
     <header className="cabecalho">
@@ -50,6 +90,7 @@ export function Cabecalho() {
           <MotionLink to={ROTA_MURAL} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
             Mural
           </MotionLink>
+          <NavAutenticacao />
           <BotaoTema />
         </nav>
       </div>

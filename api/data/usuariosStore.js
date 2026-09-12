@@ -17,10 +17,6 @@ export function buscarUsuarioPorEmail(email) {
   return db.prepare('SELECT * FROM usuarios WHERE email = ?').get(normalizarEmail(email)) ?? null;
 }
 
-export function buscarUsuarioPorId(id) {
-  return db.prepare('SELECT * FROM usuarios WHERE id = ?').get(id) ?? null;
-}
-
 export function criarUsuario({ email, senha }) {
   const usuario = {
     id: crypto.randomUUID(),

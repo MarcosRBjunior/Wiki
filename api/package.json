@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "test": "JWT_SECRET=segredo-de-teste-nao-use-em-producao node --test"
+    "test": "NODE_ENV=test JWT_SECRET=segredo-de-teste-nao-use-em-producao node --test"
   },
   "keywords": [],
   "author": "",

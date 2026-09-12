@@ -3,7 +3,8 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_FILE = path.join(__dirname, 'personagens.db');
+const DB_FILE =
+  process.env.NODE_ENV === 'test' ? ':memory:' : path.join(__dirname, 'personagens.db');
 
 export const db = new Database(DB_FILE);
 

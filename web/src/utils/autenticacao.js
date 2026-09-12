@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-const CHAVE_ARMAZENAMENTO = 'wiki-sessao'
+export const CHAVE_ARMAZENAMENTO = 'wiki-sessao'
 
 export function lerSessaoSalva() {
   try {
@@ -23,5 +23,9 @@ export function salvarSessao(sessao) {
 export const ContextoAutenticacao = createContext(null)
 
 export function useAutenticacao() {
-  return useContext(ContextoAutenticacao)
+  const contexto = useContext(ContextoAutenticacao)
+  if (contexto === null) {
+    throw new Error('useAutenticacao deve ser usado dentro de ProvedorAutenticacao')
+  }
+  return contexto
 }

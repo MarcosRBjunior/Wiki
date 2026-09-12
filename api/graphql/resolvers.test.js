@@ -131,3 +131,46 @@ test('login rejeita senha errada', async () => {
   assert.equal(response.body.singleResult.data, null);
   assert.equal(response.body.singleResult.errors[0].extensions.code, 'CREDENCIAIS_INVALIDAS');
 });
+
+test('criarConta rejeita e-mail vazio', async () => {
+  const response = await server.executeOperation({
+    query: CRIAR_CONTA,
+    variables: { email: '', senha: 'senha-valida-123' },
+  });
+
+  assert.equal(response.body.kind, 'single');
+  assert.equal(response.body.singleResult.data, null);
+  assert.equal(response.body.singleResult.errors[0].extensions.code, 'EMAIL_INVALIDO');
+  assert.equal(buscarUsuarioPorEmail(''), null);
+});
+
+test('criarConta rejeita e-mail sem formato válido', async () => {
+  const response = await server.executeOperation({
+    query: CRIAR_CONTA,
+    variables: { email: 'nao-e-email', senha: 'senha-valida-123' },
+  });
+
+  assert.equal(response.body.kind, 'single');
+  assert.equal(response.body.singleResult.data, null);
+  assert.equal(response.body.singleResult.errors[0].extensions.code, 'EMAIL_INVALIDO');
+});
+
+test('cadastro e login não diferenciam maiúsculas/minúsculas no e-mail', async () => {
+  const email = `CaseTeste-${crypto.randomUUID()}@Teste.com`;
+  const senha = 'senha-valida-123';
+
+  await server.executeOperation({ query: CRIAR_CONTA, variables: { email, senha } });
+
+  const duplicata = await server.executeOperation({
+    query: CRIAR_CONTA,
+    variables: { email: email.toLowerCase(), senha },
+  });
+  assert.equal(duplicata.body.singleResult.errors[0].extensions.code, 'EMAIL_JA_CADASTRADO');
+
+  const login = await server.executeOperation({
+    query: LOGIN,
+    variables: { email: email.toUpperCase(), senha },
+  });
+  assert.equal(login.body.singleResult.errors, undefined);
+  assert.equal(login.body.singleResult.data.login.usuario.email, email.toLowerCase());
+});

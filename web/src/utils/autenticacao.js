@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 
-const CHAVE_ARMAZENAMENTO = 'wiki-sessao'
+export const CHAVE_ARMAZENAMENTO = 'wiki-sessao'
 
 export function lerSessaoSalva() {
   try {

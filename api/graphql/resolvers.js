@@ -28,7 +28,8 @@ export const resolvers = {
     },
     login: (_, { email, senha }) => {
       const usuario = buscarUsuarioPorEmail(email);
-      if (!usuario || !verificarSenha(usuario, senha)) {
+      const senhaCorreta = verificarSenha(usuario, senha);
+      if (!usuario || !senhaCorreta) {
         throw new GraphQLError('E-mail ou senha inválidos.', {
           extensions: { code: 'CREDENCIAIS_INVALIDAS' },
         });

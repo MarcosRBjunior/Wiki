@@ -4,6 +4,11 @@ import { db } from './db.js';
 
 const SALT_ROUNDS = 10;
 
+// Usado quando o e-mail não existe, pra login() gastar o mesmo tempo de bcrypt
+// que gastaria comparando uma senha real — sem isso, dá pra descobrir por
+// timing quais e-mails estão cadastrados.
+const HASH_FALSO = bcrypt.hashSync(crypto.randomUUID(), SALT_ROUNDS);
+
 function normalizarEmail(email) {
   return typeof email === 'string' ? email.trim().toLowerCase() : email;
 }
@@ -33,5 +38,6 @@ export function criarUsuario({ email, senha }) {
 }
 
 export function verificarSenha(usuario, senha) {
-  return bcrypt.compareSync(senha, usuario.senha_hash);
+  const hash = usuario ? usuario.senha_hash : HASH_FALSO;
+  return bcrypt.compareSync(senha, hash);
 }

@@ -26,18 +26,16 @@ Branch: `fix/18-correcoes-revisao-login`.
       não um erro cru do SQLite.
 - [x] `jwt.verify` (em `api/autenticacao.js`) fixa `algorithms: ['HS256']`
       explicitamente, e `jwt.sign` idem.
-- [ ] Hash e verificação de senha (`bcrypt`) não bloqueiam o event loop —
+- [x] Hash e verificação de senha (`bcrypt`) não bloqueiam o event loop —
       usam a API assíncrona do `bcryptjs`.
-      > Verificado de verdade e **não se sustenta na prática**: o código usa
-      > mesmo a API assíncrona (`await bcrypt.hash`/`bcrypt.compare`, sem
-      > `*Sync`), mas a implementação do `bcryptjs` só cede o event loop
-      > (`nextTick`) entre "fatias" de trabalho quando o cálculo do custo
-      > (`SALT_ROUNDS = 10`) ultrapassa `MAX_EXECUTION_TIME = 100ms`. Como o
-      > hash/compare aqui leva ~55-60ms (menos que 100ms), a rodada inteira
-      > roda de uma vez, síncrona, sem nunca ceder o loop. Prova real: ver
-      > item "bcrypt não bloqueia o event loop" no test-plan.md — uma query
-      > `{ personagens { id } }` que sozinha leva ~1-2ms passou a levar
-      > ~46-60ms quando disparada durante um `login()` em andamento.
+      > Reteste depois da correção: `usuariosStore.js` agora roda
+      > `bcrypt.hash`/`bcrypt.compare` numa worker thread dedicada
+      > (`api/data/bcryptWorker.js`, `node:worker_threads`), criada e
+      > terminada por chamada, em vez de na thread principal. Prova real:
+      > ver item "bcrypt não bloqueia o event loop" no test-plan.md — a
+      > mesma query concorrente que antes subia de ~1-2ms pra ~46-70ms
+      > enquanto o bcrypt rodava agora ficou em ~1.8-4ms (perto do baseline
+      > isolado).
 - [x] Código morto removido: `buscarUsuarioPorId` (nunca chamado) sai de
       `api/data/usuariosStore.js`.
 

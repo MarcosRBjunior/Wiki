@@ -25,12 +25,15 @@ interface. Cada item só é marcado com prova anexada na seção Evidência.
 - [x] **JWT com algoritmo fixo**: inspecionar o código/`jwt.verify` e
       confirmar `algorithms: ['HS256']` explícito; token assinado e validado
       normalmente por um login real.
-- [ ] **bcrypt não bloqueia o event loop**: com a API rodando, disparar um
+- [x] **bcrypt não bloqueia o event loop**: com a API rodando, disparar um
       login (bcrypt) e, durante a espera, mandar em paralelo uma query
       simples `personagens`; confirmar que a query simples não fica presa
       atrás do bcrypt.
-      > Testado de verdade e o comportamento **falhou**: a query simples
-      > ficou presa atrás do bcrypt. Ver Evidência abaixo.
+      > Falhou na primeira rodada de validação (query simples presa atrás do
+      > bcrypt síncrono na thread principal). Corrigido movendo o
+      > hash/compare pra uma worker thread dedicada; reteste confirmou que
+      > passou a funcionar. Ver Evidência abaixo (seção "Reteste — bcrypt em
+      > worker thread").
 - [x] **Código morto removido**: confirmar que `buscarUsuarioPorId` não
       existe mais em `api/data/usuariosStore.js` e que `npm test` da API
       continua passando.
@@ -116,7 +119,9 @@ erro amigável, não o `SELECT` prévio.
 retornado por um `login` bem-sucedido, header decodificado
 (`base64 -d` da primeira parte do JWT): `{"alg":"HS256","typ":"JWT"}`.
 
-**bcrypt não bloqueia o event loop — FALHOU.** Script Node disparando um
+**bcrypt não bloqueia o event loop — 1ª rodada, FALHOU (corrigido depois,
+ver "Reteste — bcrypt em worker thread" mais abaixo).** Script Node
+disparando um
 `login` (que roda bcrypt, `SALT_ROUNDS = 10`) e, 10ms depois de iniciado
 (login ainda em voo), uma query `{ personagens { id } }` em paralelo, 6
 rodadas:
@@ -144,7 +149,46 @@ rodada ultrapassa `MAX_EXECUTION_TIME = 100ms` (linha ~995); com
 `SALT_ROUNDS = 10` o cálculo inteiro leva ~55-60ms (menos que 100ms), então
 roda de uma vez só, de forma síncrona, sem nunca ceder o loop. Ou seja: o
 código faz a troca de API certa (assíncrona), mas na prática, com esse
-número de rounds, isso não impede o bloqueio — item mantido **sem check**.
+número de rounds, isso não impede o bloqueio — item deixado **sem check**
+nesta rodada.
+
+**Reteste — bcrypt em worker thread (correção aplicada depois da 1ª
+rodada).** Implementação mudou: `usuariosStore.js` agora roda
+`bcrypt.hash`/`bcrypt.compare` dentro de `api/data/bcryptWorker.js`, numa
+`node:worker_threads` `Worker` nova por chamada (criada e terminada a cada
+`hash`/`compare`, sem worker persistente). Reteste com o mesmo método do
+item acima (login/`criarConta` disparado, query `{ personagens { id } }`
+disparada 10ms depois, em voo junto):
+
+| login (ms) | query simples disparada 10ms depois (ms) |
+|---|---|
+| 126.7 | 19.2 (1ª rodada, warm-up) |
+| 88.9 | 2.5 |
+| 89.9 | 2.2 |
+| 89.8 | 2.3 |
+| 85.8 | 4.0 |
+| 90.4 | 1.8 |
+
+Baseline da query simples isolada, sem nada concorrente: `1.6, 1.3, 1.2,
+1.2, 1.1` ms (média 1.28ms). Média da query concorrendo com o login: 5.34ms
+(puxada pelo warm-up de 19.2ms; sem ele, 2.2-4.0ms) — nada como os
+~46-70ms da 1ª rodada. Repeti com `criarConta` (que roda `bcrypt.hash`, não
+só `compare`) disparado 10ms antes de 4 queries simples: `criarConta` levou
+90.4/90.1/90.8/99.5ms, e a query simples concorrente ficou em
+1.7/2.2/2.3/2.2ms — de novo, perto do baseline isolado. Confirma que a
+worker thread resolveu o bloqueio: quem fica preso agora é só a worker
+descartável, a thread principal (que atende as outras requisições) segue
+livre. (Trade-off esperado: cada `login`/`criarConta` ficou ~30-40ms mais
+lento por causa do overhead de criar/terminar a worker a cada chamada —
+correto do ponto de vista deste item, que é sobre não travar *outras*
+requisições, não sobre a latência da própria chamada de auth.)
+
+`npm test` da API rodado duas vezes seguidas com `timeout 30` (pra pegar de
+propósito qualquer travamento do processo, já que uma versão anterior da
+correção tinha um bug em que a worker ficava presa por causa de um listener
+`message` reaproveitado): as duas rodadas terminaram sozinhas, exit code 0,
+sem precisar do timeout matar nada, 11/11 testes passando em ~910ms cada
+vez.
 
 **Código morto removido.** `grep -rn "buscarUsuarioPorId" api/` (excluindo
 `node_modules`): nenhuma ocorrência. `npm test` da API: 11/11 passando.

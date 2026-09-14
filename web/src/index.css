@@ -768,8 +768,16 @@ svg {
   width: 108px;
   height: 108px;
   border-radius: 50%;
+  background: radial-gradient(circle at 33% 28%, color-mix(in oklch, var(--cor-nacao-atual, var(--cor-primaria)) 55%, white 18%), var(--cor-nacao-atual, var(--cor-primaria)) 72%);
+  color: var(--cor-sobre-nacao-atual, var(--cor-sobre-primaria));
   border: 3px solid var(--dourado);
   box-shadow: var(--sombra);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
   object-fit: cover;
 }
 

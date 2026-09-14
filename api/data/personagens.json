@@ -6,7 +6,7 @@
     "idade": 12,
     "historia": "Último Nômade do Ar e o Avatar mais recente, Aang passou cem anos congelado em um iceberg até ser encontrado por Katara e Sokka. Precisa aprender a dominar os quatro elementos para derrotar o Senhor do Fogo Ozai e trazer equilíbrio ao mundo.",
     "sonhos": "Restaurar a cultura dos Nômades do Ar e viver em paz, sem abrir mão de quem é para cumprir seu dever como Avatar.",
-    "imagem": "/personagens/aang.jpg"
+    "imagem": "/personagens/aang.jpeg"
   },
   {
     "id": "2",
@@ -15,7 +15,7 @@
     "idade": 14,
     "historia": "Uma das últimas dobradoras d'água da Tribo do Sul, Katara se torna mentora e melhor amiga de Aang, ajudando-o em sua jornada enquanto busca vingança contra a Nação do Fogo pela morte de sua mãe.",
     "sonhos": "Tornar-se uma mestra da dobra d'água e ajudar a reconstruir sua tribo, protegendo quem ama.",
-    "imagem": "/personagens/katara.jpg"
+    "imagem": "/personagens/katara.jpeg"
   },
   {
     "id": "3",
@@ -24,7 +24,7 @@
     "idade": 15,
     "historia": "Irmão de Katara, um dos poucos guerreiros não-dobradores do grupo. Evolui de cético e brincalhão para um estrategista habilidoso, essencial nos planos de batalha contra a Nação do Fogo.",
     "sonhos": "Ser reconhecido como um grande guerreiro e estrategista, à altura do pai que tanto admira.",
-    "imagem": "/personagens/sokka.png"
+    "imagem": "/personagens/sokka.jpeg"
   },
   {
     "id": "4",
@@ -33,7 +33,7 @@
     "idade": 12,
     "historia": "Cega desde o nascimento, Toph desenvolveu uma forma única de dobra de terra baseada em vibrações, tornando-se a criadora da metalurgia. Foge da superproteção de sua família para se juntar ao grupo de Aang.",
     "sonhos": "Ser vista pelo que realmente é, e não pela deficiência, provando que é a maior mestra de terra do mundo.",
-    "imagem": "/personagens/toph.png"
+    "imagem": "/personagens/toph.jpeg"
   },
   {
     "id": "5",
@@ -42,7 +42,7 @@
     "idade": 16,
     "historia": "Príncipe exilado da Nação do Fogo, banido pelo próprio pai. Passa a maior parte da série caçando o Avatar na esperança de recuperar sua honra, até questionar tudo o que lhe ensinaram.",
     "sonhos": "Recuperar sua honra e, eventualmente, encontrar seu próprio caminho, longe da sombra do pai.",
-    "imagem": "/personagens/zuko.png"
+    "imagem": "/personagens/zuko.jpeg"
   },
   {
     "id": "6",
@@ -51,7 +51,7 @@
     "idade": 65,
     "historia": "Tio de Zuko e ex-general da Nação do Fogo, conhecido como 'Dragão do Oeste'. Após perder o filho na guerra, torna-se uma figura sábia e paciente que guia Zuko em sua jornada de redenção.",
     "sonhos": "Ver o sobrinho encontrar paz e um mundo livre da guerra que ajudou a começar.",
-    "imagem": "/personagens/iroh.png"
+    "imagem": "/personagens/iroh.jpeg"
   },
   {
     "id": "7",
@@ -60,7 +60,7 @@
     "idade": 14,
     "historia": "Princesa da Nação do Fogo e irmã mais nova de Zuko, prodígio da dobra de fogo. Cresceu sob enorme pressão para ser perfeita, o que a torna uma das antagonistas mais complexas da série.",
     "sonhos": "Provar que é digna do trono e do amor do pai, mesmo que isso a custe a sanidade.",
-    "imagem": "/personagens/azula.png"
+    "imagem": "/personagens/azula.jpeg"
   },
   {
     "id": "8",
@@ -69,7 +69,7 @@
     "idade": 15,
     "historia": "Líder das Guerreiras Kyoshi, um grupo de combatentes de elite na Ilha Kyoshi. Treina Sokka em suas técnicas de luta e se torna uma aliada fundamental do grupo.",
     "sonhos": "Proteger sua ilha e provar que as Guerreiras Kyoshi são páreo para qualquer exército.",
-    "imagem": "/personagens/suki.png"
+    "imagem": "/personagens/suki.jpeg"
   },
   {
     "id": "9",
@@ -78,7 +78,7 @@
     "idade": 45,
     "historia": "Senhor do Fogo e pai de Zuko e Azula, usurpou o trono e baniu o próprio filho. Pretende usar o cometa de Sozin para queimar o Reino da Terra e se declarar Phoenix King.",
     "sonhos": "Dominar os quatro cantos do mundo sob o poder absoluto da Nação do Fogo.",
-    "imagem": "/personagens/ozai.png"
+    "imagem": "/personagens/ozai.jpeg"
   },
   {
     "id": "10",
@@ -87,7 +87,7 @@
     "idade": 16,
     "historia": "Namorada de Zuko e amiga de infância de Azula, especialista em armas de arremesso escondidas nas mangas. Por trás da expressão entediada, esconde uma lealdade que a leva a escolher Zuko contra a própria princesa.",
     "sonhos": "Ficar ao lado de Zuko, mesmo que isso signifique romper com tudo o que sua família espera dela.",
-    "imagem": "/personagens/mai.png"
+    "imagem": "/personagens/mai.jpeg"
   },
   {
     "id": "11",
@@ -96,7 +96,7 @@
     "idade": 15,
     "historia": "Acrobata que bloqueia chi com toques precisos, amiga de infância de Azula e Mai. Deixou o circo para se juntar ao grupo de Azula, mas acaba questionando essa lealdade.",
     "sonhos": "Ser vista como alguém único, e não apenas mais uma das sextuplas idênticas de sua família.",
-    "imagem": "/personagens/tylee.png"
+    "imagem": "/personagens/ty_lee.jpeg"
   },
   {
     "id": "12",
@@ -105,7 +105,7 @@
     "idade": 112,
     "historia": "Rei de Omashu e amigo de infância de Aang, um dos maiores dobradores de terra do mundo. Sua loucura aparente esconde uma genialidade estratégica que ele usa para libertar sua cidade sozinho.",
     "sonhos": "Provar que a loucura e a flexibilidade de pensamento são as verdadeiras armas contra um mundo rígido.",
-    "imagem": "/personagens/bumi.png"
+    "imagem": "/personagens/bumi.jpeg"
   },
   {
     "id": "13",
@@ -114,7 +114,7 @@
     "idade": 16,
     "historia": "Líder dos Freedom Fighters, um grupo de órfãos de guerra que sabota tropas da Nação do Fogo. Sua obsessão por vingança o leva a métodos cada vez mais extremos, colocando-o em conflito com Katara e Aang.",
     "sonhos": "Vingar a família e a vila perdidas para a Nação do Fogo, libertando o Reino da Terra do invasor.",
-    "imagem": "/personagens/jet.png"
+    "imagem": "/personagens/jet.jpeg"
   },
   {
     "id": "14",
@@ -123,7 +123,7 @@
     "idade": 61,
     "historia": "Mestre da dobra d'água da Tribo do Norte, inicialmente se recusa a ensinar Katara por ela ser mulher. Depois de ser desafiado por ela, reconhece seu talento e se torna um de seus mestres.",
     "sonhos": "Preservar as tradições da Tribo da Água do Norte, mesmo tendo que abrir mão de alguns costumes ultrapassados.",
-    "imagem": "/personagens/pakku.png"
+    "imagem": "/personagens/pakku.jpeg"
   },
   {
     "id": "15",
@@ -132,7 +132,7 @@
     "idade": 16,
     "historia": "Princesa da Tribo da Água do Norte, ligada ao Espírito da Lua desde que foi salva por ele ao nascer. Se sacrifica para restaurar o espírito e proteger seu povo do ataque da Nação do Fogo.",
     "sonhos": "Cumprir seu dever com o povo e, ao mesmo tempo, viver o amor que sente por Sokka.",
-    "imagem": "/personagens/yue.png"
+    "imagem": "/personagens/yue.jpeg"
   },
   {
     "id": "16",
@@ -141,7 +141,7 @@
     "idade": 38,
     "historia": "Pai de Katara e Sokka e chefe da Tribo da Água do Sul, lidera os guerreiros da tribo em uma campanha contra a Nação do Fogo enquanto os filhos viajam com o Avatar.",
     "sonhos": "Reconstruir a Tribo da Água do Sul e ver os filhos crescerem livres da guerra.",
-    "imagem": "/personagens/hakoda.png"
+    "imagem": "/personagens/hakoda.jpeg"
   },
   {
     "id": "17",
@@ -150,7 +150,7 @@
     "idade": 84,
     "historia": "Monge e mestre de Aang no Templo do Ar do Sul, figura paterna que o criou com carinho e bom humor. Morreu defendendo o templo quando a Nação do Fogo exterminou os Nômades do Ar.",
     "sonhos": "Guiar Aang para que ele aceitasse seu papel de Avatar sem perder a leveza e a alegria de ser um Nômade do Ar.",
-    "imagem": "/personagens/gyatso.png"
+    "imagem": "/personagens/gyatso.jpeg"
   },
   {
     "id": "18",
@@ -159,7 +159,7 @@
     "idade": 58,
     "historia": "Avatar anterior a Aang e dominador de fogo nascido na Nação do Fogo, amigo de infância de Sozin antes de este se tornar Senhor do Fogo. Morreu na erupção do Monte Caldeira sem conseguir deter os planos expansionistas do amigo.",
     "sonhos": "Reparar, mesmo após a morte, o erro de não ter impedido Sozin a tempo, orientando Aang a agir sem hesitar.",
-    "imagem": "/personagens/roku.png"
+    "imagem": "/personagens/roku.jpeg"
   },
   {
     "id": "19",
@@ -168,7 +168,7 @@
     "idade": 230,
     "historia": "Avatar que viveu séculos antes de Roku, dominadora de terra e a mais alta e longeva de todos os Avatares. Fundou a Ilha Kyoshi e criou as Guerreiras Kyoshi ao separar a península do continente para proteger seu povo.",
     "sonhos": "Garantir que a justiça seja feita com firmeza, mesmo que isso exija métodos duros e decisões implacáveis.",
-    "imagem": "/personagens/kyoshi.png"
+    "imagem": "/personagens/kyoshi.jpeg"
   },
   {
     "id": "20",
@@ -177,7 +177,7 @@
     "idade": 24,
     "historia": "Caçadora de recompensas independente que viaja com seu preguiçoso-urso Nyla, farejador capaz de rastrear qualquer um pelo cheiro. É contratada por Zuko e Iroh para localizar o Avatar.",
     "sonhos": "Seguir seu próprio código, sem se prender a lados da guerra, cobrando bem por cada trabalho aceito.",
-    "imagem": "/personagens/june.png"
+    "imagem": "/personagens/june.jpeg"
   },
   {
     "id": "21",
@@ -186,7 +186,7 @@
     "idade": 80,
     "historia": "Última dominadora de água nascida na Tribo do Sul antes de Katara, foi capturada e presa pela Nação do Fogo, onde desenvolveu o bloodbending para escapar. Décadas depois, usa a técnica para se vingar de aldeões inocentes.",
     "sonhos": "Ver a Tribo da Água do Sul restaurada, ainda que sua sede de vingança a tenha corrompido pelo caminho.",
-    "imagem": "/personagens/hama.png"
+    "imagem": "/personagens/hama.jpeg"
   },
   {
     "id": "22",
@@ -195,7 +195,7 @@
     "idade": 60,
     "historia": "Mestre espadachim da Nação do Fogo que se recusou a lutar na guerra e vive isolado ensinando sua arte. Aceita treinar Sokka ao reconhecer nele um verdadeiro guerreiro, mesmo sem domínio de elemento.",
     "sonhos": "Preservar a arte da espada como algo maior que a guerra, passando seu conhecimento a quem for digno dele.",
-    "imagem": "/personagens/piandao.png"
+    "imagem": "/personagens/piandao.jpeg"
   },
   {
     "id": "23",
@@ -204,7 +204,7 @@
     "idade": 30,
     "historia": "Assassino profissional contratado por Zuko e depois por Azula para eliminar o Avatar, capaz de gerar explosões concentrando energia na cicatriz em sua testa. Persegue o grupo de Aang sem descanso nem palavras.",
     "sonhos": "Cumprir cada contrato até o fim, custe o que custar, sem desviar do alvo.",
-    "imagem": "/personagens/combustionman.png"
+    "imagem": "/personagens/combustion.jpeg"
   },
   {
     "id": "24",
@@ -213,6 +213,6 @@
     "idade": 50,
     "historia": "Um dos poucos desertores da Nação do Fogo, dominador de fogo que passou a temer as próprias chamas por ver o dano que causam. Aceita, a contragosto, dar as primeiras lições de domínio do fogo a Aang.",
     "sonhos": "Impedir que outros repitam os erros que ele viu o fogo causar, mesmo que isso o torne um fugitivo solitário.",
-    "imagem": "/personagens/jeongjeong.png"
+    "imagem": "/personagens/jeong.jpeg"
   }
 ]

@@ -84,7 +84,7 @@ consulta a API de verdade (personagem fixo, id `5` = Zuko).
 | `JWT_SECRET` obrigatório, sem fallback fixo no código (`api/autenticacao.js` lança erro na inicialização se faltar) | Decisão de produto (tarefa 16, revisão de segurança pós-implementação) | Um fallback hardcoded assinaria tokens válidos com um segredo público conhecido por qualquer um que leia o repo; `npm test` define seu próprio segredo de teste (`api/package.json`) pra não depender do `.env` local |
 | Vite como bundler | Inferido | Não mencionado no projeto.md, decisão de implementação |
 | Oxlint (não ESLint) | Inferido | Mais rápido, troca cobertura de regras por velocidade de feedback no CI |
-| Fallback de avatar via ui-avatars.com | Explícito (comentário em `utils/nacao.js`) | Nem todo personagem tem arte própria (só Aang e Katara têm `.jpg` real) |
+| Fallback de avatar via ui-avatars.com | Explícito (comentário em `utils/nacao.js`) | Cobre falha de carregamento de imagem (rede, arquivo corrompido) mesmo com os 24 personagens tendo foto real em `web/public/personagens/` (tarefa 19) |
 | Dark mode automático (`prefers-color-scheme`, sem toggle) | Inferido | Simplicidade, escopo pequeno |
 | Mural como landing page (`/`) em vez de `/personagens` | Decisão de produto recente, sem registro de motivo de negócio em nenhum lugar | Pedido direto durante a sessão de trabalho |
 

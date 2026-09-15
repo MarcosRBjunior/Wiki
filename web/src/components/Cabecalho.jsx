@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { ROTA_MURAL, ROTA_PERSONAGENS, ROTA_LOGIN, ROTA_CADASTRO } from '../utils/rotas.js'
+import { ROTA_MURAL, ROTA_PERSONAGENS, ROTA_LOGIN, ROTA_CADASTRO, ROTA_FAVORITOS } from '../utils/rotas.js'
 import { useTema } from '../utils/tema.js'
 import { useAutenticacao } from '../utils/autenticacao.js'
 
@@ -71,6 +71,8 @@ function NavAutenticacao() {
 }
 
 export function Cabecalho() {
+  const { usuario } = useAutenticacao()
+
   return (
     <header className="cabecalho">
       <div className="cabecalho__interior">
@@ -90,6 +92,11 @@ export function Cabecalho() {
           <MotionLink to={ROTA_MURAL} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
             Mural
           </MotionLink>
+          {usuario && (
+            <MotionLink to={ROTA_FAVORITOS} whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }} transition={springNav}>
+              Favoritos
+            </MotionLink>
+          )}
           <NavAutenticacao />
           <BotaoTema />
         </nav>

@@ -21,6 +21,36 @@ export const PERSONAGEM_QUERY = gql`
       historia
       sonhos
       imagem
+      favoritado
+    }
+  }
+`
+
+export const MEUS_FAVORITOS_QUERY = gql`
+  query MeusFavoritos {
+    meusFavoritos {
+      id
+      nome
+      nacao
+      imagem
+    }
+  }
+`
+
+export const FAVORITAR_MUTATION = gql`
+  mutation Favoritar($personagemId: ID!) {
+    favoritar(personagemId: $personagemId) {
+      id
+      favoritado
+    }
+  }
+`
+
+export const DESFAVORITAR_MUTATION = gql`
+  mutation Desfavoritar($personagemId: ID!) {
+    desfavoritar(personagemId: $personagemId) {
+      id
+      favoritado
     }
   }
 `

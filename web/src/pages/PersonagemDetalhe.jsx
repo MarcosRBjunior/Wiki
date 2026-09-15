@@ -5,7 +5,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { PERSONAGEM_QUERY } from '../graphql/queries.js'
 import { estiloNacaoVars, iconeNacao } from '../utils/nacao.js'
 import { ROTA_PERSONAGENS } from '../utils/rotas.js'
+import { useAutenticacao } from '../utils/autenticacao.js'
 import { AvatarPersonagem } from '../components/AvatarPersonagem.jsx'
+import { BotaoFavoritar } from '../components/BotaoFavoritar.jsx'
 
 function SecaoDetalhe({ titulo, texto, fechada, onAlternar }) {
   return (
@@ -51,6 +53,7 @@ export function PersonagemDetalhe() {
   const { id } = useParams()
   const { data, loading, error } = useQuery(PERSONAGEM_QUERY, { variables: { id } })
   const [secoesFechadas, setSecoesFechadas] = useState(() => new Set())
+  const { usuario } = useAutenticacao()
 
   function alternarSecao(chave) {
     setSecoesFechadas((atual) => {
@@ -105,6 +108,13 @@ export function PersonagemDetalhe() {
               <span className="personagem-detalhe__marca-dagua" aria-hidden="true">
                 <svg><use href={icone} /></svg>
               </span>
+            )}
+            {usuario && (
+              <BotaoFavoritar
+                personagemId={personagem.id}
+                favoritado={personagem.favoritado}
+                className="personagem-detalhe__favoritar"
+              />
             )}
             <AvatarPersonagem nome={personagem.nome} imagem={personagem.imagem} nacao={personagem.nacao} className="personagem-detalhe__avatar" />
             <h2>{personagem.nome}</h2>

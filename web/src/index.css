@@ -553,6 +553,55 @@ svg {
   position: relative;
 }
 
+.personagem-detalhe__favoritar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.botao-favoritar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.botao-favoritar svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.botao-favoritar:hover {
+  color: var(--cor-fogo);
+  border-color: var(--cor-fogo);
+}
+
+.botao-favoritar:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+.botao-favoritar--ativo,
+.botao-favoritar--ativo:hover {
+  color: #fff;
+  background: var(--cor-fogo);
+  border-color: var(--cor-fogo);
+}
+
+.botao-favoritar--ativo svg {
+  fill: currentColor;
+}
+
 .personagem-detalhe__marca-dagua {
   position: absolute;
   top: -30px;

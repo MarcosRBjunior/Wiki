@@ -7,6 +7,7 @@ export const typeDefs = `#graphql
     historia: String!
     sonhos: String!
     imagem: String!
+    favoritado: Boolean!
   }
 
   type Usuario {
@@ -23,10 +24,13 @@ export const typeDefs = `#graphql
     status: String!
     personagens: [Personagem!]!
     personagem(id: ID!): Personagem
+    meusFavoritos: [Personagem!]!
   }
 
   type Mutation {
     criarConta(email: String!, senha: String!): AutenticacaoPayload!
     login(email: String!, senha: String!): AutenticacaoPayload!
+    favoritar(personagemId: ID!): Personagem!
+    desfavoritar(personagemId: ID!): Personagem!
   }
 `;

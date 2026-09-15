@@ -30,3 +30,11 @@ db.exec(`
     criado_em TEXT NOT NULL
   )
 `);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS favoritos (
+    usuario_id TEXT NOT NULL REFERENCES usuarios(id),
+    personagem_id TEXT NOT NULL REFERENCES personagens(id),
+    PRIMARY KEY (usuario_id, personagem_id)
+  )
+`);

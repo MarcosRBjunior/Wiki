@@ -8,8 +8,9 @@ import { PersonagemDetalhe } from './pages/PersonagemDetalhe.jsx'
 import { MuralPrincipal } from './pages/MuralPrincipal.jsx'
 import { PaginaLogin } from './pages/PaginaLogin.jsx'
 import { PaginaCadastro } from './pages/PaginaCadastro.jsx'
+import { PaginaFavoritos } from './pages/PaginaFavoritos.jsx'
 import { NaoEncontrada } from './pages/NaoEncontrada.jsx'
-import { ROTA_MURAL, ROTA_PERSONAGENS, ROTA_LOGIN, ROTA_CADASTRO } from './utils/rotas.js'
+import { ROTA_MURAL, ROTA_PERSONAGENS, ROTA_LOGIN, ROTA_CADASTRO, ROTA_FAVORITOS } from './utils/rotas.js'
 
 function App() {
   const location = useLocation()
@@ -33,6 +34,7 @@ function App() {
               <Route path={`${ROTA_PERSONAGENS}/:id`} element={<PersonagemDetalhe />} />
               <Route path={ROTA_LOGIN} element={<PaginaLogin />} />
               <Route path={ROTA_CADASTRO} element={<PaginaCadastro />} />
+              <Route path={ROTA_FAVORITOS} element={<PaginaFavoritos />} />
               <Route path="/mural" element={<Navigate to={ROTA_MURAL} replace />} />
               <Route path="*" element={<NaoEncontrada />} />
             </Routes>

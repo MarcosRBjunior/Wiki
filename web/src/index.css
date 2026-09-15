@@ -591,7 +591,8 @@ svg {
   cursor: default;
 }
 
-.botao-favoritar--ativo {
+.botao-favoritar--ativo,
+.botao-favoritar--ativo:hover {
   color: #fff;
   background: var(--cor-fogo);
   border-color: var(--cor-fogo);

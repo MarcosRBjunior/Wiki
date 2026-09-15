@@ -5,7 +5,7 @@ navegador real (Claude in Chrome), backend via request real contra o servidor
 GraphQL rodando — nunca CLI, request direto sem servidor real ou script
 mockado. Cada item marcado só com prova anexada.
 
-- [ ] **Favoritar muda o ícone na hora**: logado, na página de detalhe de um
+- [x] **Favoritar muda o ícone na hora**: logado, na página de detalhe de um
       personagem, clicar no botão de favoritar; confirmar que o ícone muda
       (vazio → cheio) sem reload.
 - [x] **Favorito persiste no banco**: depois de favoritar, inspecionar a
@@ -27,7 +27,7 @@ mockado. Cada item marcado só com prova anexada.
 - [x] **Isolamento entre contas**: favoritar um personagem com a conta A,
       logar com a conta B e confirmar que esse personagem NÃO aparece como
       favorito pra B.
-- [ ] **Acessível por teclado**: alcançar e ativar o botão de favoritar só
+- [x] **Acessível por teclado**: alcançar e ativar o botão de favoritar só
       com Tab + Enter/Espaço, e confirmar `aria-label` descrevendo a ação do
       próximo clique.
 
@@ -70,82 +70,56 @@ CREATE TABLE usuarios (
 );
 ```
 
-### Favoritar muda o ícone na hora — FALHA PARCIAL (bug real encontrado, não corrigido)
+### Favoritar muda o ícone na hora — PASSOU (retestado após correção de CSS)
 
-Logado como Conta A em `/personagens/1` (Aang), com o coração vazio
-confirmado por zoom de screenshot (contorno, sem preenchimento) e
-`aria-label="Adicionar aos favoritos"` (via `find`). Cliquei no botão
-(`mcp__claude-in-chrome__computer` `left_click` real sobre o elemento).
+**Contexto**: uma sessão de QA anterior tinha encontrado aqui um bug real —
+o coração ficava invisível (vermelho sobre vermelho) no instante do clique,
+se o mouse permanecesse sobre o botão logo depois (gesto natural de clicar
+e olhar o resultado). Causa raiz identificada naquela sessão:
+`.botao-favoritar:hover` (especificidade 0,2,0) vencia
+`.botao-favoritar--ativo` (0,1,0) e sobrescrevia `color: #fff` por
+`color: var(--cor-fogo)`, deixando o SVG (`fill: currentColor`) da mesma
+cor do fundo. Desde então, uma correção foi commitada em `web/src/index.css`
+adicionando a regra `.botao-favoritar--ativo:hover`. Esta sessão repetiu o
+teste exatamente como descrito, sem mexer no código antes de testar.
 
-Resultado funcional: correto e imediato, sem reload —
+**Reprodução do teste** (sessão de QA nova, sem contexto de implementação,
+plugin Claude in Chrome reconectado): logado como Conta A (sessão já
+autenticada, cabeçalho mostrando `qa17-conta-a@teste.com` / "Sair"), acessei
+`/personagens/10` (Mai — escolhido por não estar favoritado por nenhuma
+conta no momento, confirmado antes via `sqlite3 ... "SELECT * FROM
+favoritos"`). Estado inicial confirmado por zoom de screenshot: coração
+vazio (contorno), e `aria-label="Adicionar aos favoritos"` via `find`.
 
-- `aria-label` muda instantaneamente para `"Remover dos favoritos"`
-  (confirmado via `find` logo após o clique).
-- Request real disparado para `http://localhost:4000/` (`POST`, status 200)
-  confirmado em `read_network_requests`.
-- Linha `(6284118c-…, 1)` aparece na tabela `favoritos` no SQLite
-  imediatamente (sem precisar de reload).
+Cliquei no botão (`computer` `left_click` real em `[935, 224]`) e, **sem
+mover o mouse**, tirei um zoom de screenshot imediatamente da mesma região
+(`[890,190,985,260]`):
 
-Resultado visual: **quebrado**. Zoom de screenshot na região do botão logo
-após o clique mostra um círculo vermelho sólido, sem nenhum coração visível
-— não um "coração cheio", só uma bolinha vermelha. Testei se era só uma
-animação em andamento (esperei 2s e depois 3s adicionais) e o círculo sem
-coração persistiu — não é transitório.
+- Resultado visual: coração **branco, nítido e visível**, sobre fundo
+  vermelho sólido — não mais o círculo vermelho-sobre-vermelho do bug
+  antigo.
+- Confirmei que o teste reproduz de fato o cenário do bug (mouse ainda em
+  cima, `:hover` realmente ativo) via `javascript_tool`:
+  ```js
+  const btn = document.querySelector('button[aria-label="Remover dos favoritos"]');
+  btn.matches(':hover') → true
+  btn.className → "botao-favoritar botao-favoritar--ativo personagem-detalhe__favoritar"
+  ```
+- Prova definitiva com `getComputedStyle` no mesmo estado (`:hover: true` +
+  classe `--ativo` aplicada):
+  ```js
+  getComputedStyle(btn).color → "rgb(255, 255, 255)"   // branco
+  getComputedStyle(btn).backgroundColor → "oklch(0.54 0.19 26)"  // vermelho
+  ```
+  Cor do texto/ícone branca sobre fundo vermelho, exatamente como deveria
+  ser — a correção resolveu o conflito de especificidade de verdade, não só
+  aparentemente.
 
-**Causa raiz identificada** (só investigada depois de já ter reproduzido o
-bug pela UI, lendo `web/src/index.css` e `web/src/components/BotaoFavoritar.jsx`):
+`aria-label` também mudou corretamente para `"Remover dos favoritos"`
+(confirmado via `find`) no mesmo instante.
 
-- `web/src/index.css:584` — `.botao-favoritar:hover { color: var(--cor-fogo); border-color: var(--cor-fogo); }`
-- `web/src/index.css:594` — `.botao-favoritar--ativo { color: #fff; background: var(--cor-fogo); border-color: var(--cor-fogo); }`
-- `web/src/index.css:600` — `.botao-favoritar--ativo svg { fill: currentColor; }`
-
-Especificidade CSS: `.botao-favoritar:hover` tem especificidade (0,2,0)
-(uma classe + um pseudo-classe), maior que `.botao-favoritar--ativo`
-(0,1,0, uma classe só) — e a regra de `:hover` também vem depois no arquivo.
-Como o clique do usuário deixa o mouse fisicamente em cima do botão (é o
-gesto natural — clicar e olhar o resultado sem mover o mouse), o estado
-`:hover` continua ativo no momento em que o React aplica a classe
-`--ativo`. A regra `:hover` vence e sobrescreve `color: #fff` (branco) por
-`color: var(--cor-fogo)` (o mesmo vermelho do `background`). Como o SVG usa
-`fill: currentColor`, o coração fica exatamente da cor do fundo —
-invisível. Sobra só o círculo vermelho.
-
-Confirmado via `javascript_tool`:
-
-```js
-document.querySelector('button[aria-label="Remover dos favoritos"]').matches(':hover')
-→ true
-```
-
-E a prova definitiva: mover o mouse pra longe do botão (`hover` em
-`(200, 500)`), **sem reload nenhum**, faz o coração branco aparecer
-corretamente sobre o fundo vermelho na hora (zoom de screenshot antes/depois
-comparados). Depois de um F5 completo (mouse não está mais sobre o botão) o
-estado favoritado também sempre renderiza certo (branco sobre vermelho) —
-por isso o item "Persiste entre reloads" abaixo passa sem ressalvas: o bug é
-só no instante do clique com o mouse ainda em cima do botão, não em geral.
-
-O caminho inverso (desfavoritar: cheio → vazio) **não** tem esse problema —
-testado e confirmado visualmente correto mesmo com o mouse ainda sobre o
-botão logo após o clique, porque no estado não-favoritado o fundo é claro
-(`var(--cor-superficie)`) e o hover só troca a cor do contorno pra vermelho,
-o que ainda deixa o coração bem visível (contorno vermelho sobre fundo
-claro). Por isso o item "Desfavoritar reverte" abaixo passa integralmente.
-
-**Reprodução**: logado, abrir `/personagens/:id` de um personagem não
-favoritado, clicar no botão de favoritar sem mover o mouse depois — o
-círculo fica vermelho sólido, sem coração visível, até o mouse sair de cima
-do botão ou a página recarregar.
-
-**Sugestão pro time de implementação** (não fiz a correção): inverter a
-ordem das regras no CSS ou aumentar a especificidade de
-`.botao-favoritar--ativo:hover` com uma regra própria que force `color: #fff`
-também no hover do estado ativo.
-
-Por ter encontrado um bug visual real e reproduzível, este item **não foi
-marcado** como passou — o estado interno muda corretamente e na hora (aria-label,
-classe, banco), mas o retorno visual imediato ("ícone muda pra cheio") fica
-quebrado no gesto de interação mais comum (clicar e não mover o mouse).
+**Conclusão**: bug de CSS corrigido. O item passa integralmente, incluindo
+o caso específico (clicar sem mover o mouse) que antes falhava.
 
 ### Favorito persiste no banco — PASSOU
 
@@ -234,86 +208,92 @@ IDs de usuário confirmados via banco:
 `6284118c-fad4-4d9e-9990-e21fe6243cff` = `qa17-conta-a@teste.com`,
 `a2080242-7efe-4b8d-878b-6daa7d52b450` = `qa17-conta-b@teste.com`.
 
-### Acessível por teclado — NÃO CONCLUÍDO (evidência parcial + limitação da ferramenta de automação)
+### Acessível por teclado — PASSOU (retestado em sessão nova do plugin; Tab funcionou)
 
-Consegui comprovar com prova real, via navegador:
+**Contexto**: a sessão de QA anterior não conseguiu comprovar a metade
+"alcançar o botão só com Tab" por uma limitação específica daquela sessão
+do plugin Claude in Chrome — a tecla Tab não movia `document.activeElement`
+a partir do carregamento da página (embora cliques e Enter/Espaço
+funcionassem uma vez que o foco era colocado via `btn.focus()`). Já tinha
+sido diagnosticado como problema da ferramenta, não da aplicação. Esta
+sessão reiniciou o plugin (nova conexão) e repetiu o teste do zero.
 
-- **O botão é um elemento nativo focável por teclado**: `<button type="button">`
-  (não uma `<div>` com `onClick`), com `tabIndex: 0` e `disabled: false`
-  confirmado via `javascript_tool` (`btn.tabIndex`, `btn.disabled`) — ou
-  seja, por semântica HTML padrão ele entra na ordem de tabulação natural da
-  página sem precisar de nenhum atributo extra.
-- **Ativação por Enter funciona de verdade**: com o foco real do DOM no
-  botão (`document.activeElement === btn`, confirmado via
-  `javascript_tool`), disparei a tecla `Return` pelo `computer` tool (evento
-  de teclado real do Chrome, não simulação via JS). Um listener de
-  `keydown` em captura no `window` registrou o evento chegando
-  genuinamente no botão (`{"key":"Enter","target":"BUTTON","targetLabel":"Adicionar aos favoritos"}`).
-  O clique foi processado de verdade: `aria-label` mudou para `"Remover dos
-  favoritos"` e a linha `(6284118c-…, 2)` (Conta A, Katara) apareceu na
-  tabela `favoritos` do SQLite.
-- **Ativação por Espaço também funciona**: mesmo teste com a tecla `space`
-  — evento `{"key":" ","target":"BUTTON",...}` capturado, `aria-label`
-  voltou para `"Adicionar aos favoritos"` e a linha correspondente foi
-  removida do banco.
-- **`aria-label` descreve corretamente a próxima ação** em todos os
-  estados testados ao longo desta sessão: `"Adicionar aos favoritos"`
-  quando vazio, `"Remover dos favoritos"` quando favoritado — confirmado
-  repetidas vezes em personagens e contas diferentes.
+**Preparação**: logado como Conta A, `navigate` para
+`http://localhost:5173/personagens/10` (carregamento completo de página,
+não navegação SPA). Antes de testar Tab, confirmei
+`document.hasFocus() → false` — a aba ainda não tinha o foco do sistema
+operacional. Um `left_click` real em uma área neutra da página (fora de
+qualquer elemento interativo, `[300, 600]`) trouxe o foco:
+`document.hasFocus() → true`, `document.activeElement` continuou `BODY`
+(esperado, clique em área não interativa).
 
-O que **não** consegui comprovar com prova real: alcançar o botão navegando
-só com a tecla Tab a partir do topo da página, como o item pede
-literalmente ("alcançar... só com Tab"). Nesta sessão, a tecla Tab entregue
-pelo `computer` tool (`key`, `text: "Tab"`, inclusive com `repeat: 5`) não
-moveu o foco real da página em nenhuma tentativa — `document.activeElement`
-permaneceu `BODY` antes e depois, mesmo com `document.hasFocus()` retornando
-`true`. Investigando mais a fundo (não é suposição sobre a implementação,
-é diagnóstico da própria ferramenta de automação): anexei um listener de
-`keydown` em captura no `window` e, com o foco em `BODY` (nada focado
-explicitamente), **nenhum evento de tecla chegava à página** — nem Tab, nem
-uma letra qualquer (`"a"`). Também percebi que um `left_click` real do
-`computer` tool sobre um link (`<a>`) ou sobre o próprio botão de favoritar
-não deixava `document.activeElement` apontar pra esse elemento (ficava em
-`BODY`), embora o clique funcionasse de verdade no sentido de disparar o
-`onClick` (a mutação era enviada, o estado mudava). Ou seja: cliques e
-teclas físicas funcionam para acionar elementos, mas esta sessão do plugin
-não está deixando o foco do DOM (`document.activeElement`) refletir essas
-interações — parece uma característica de como o Claude in Chrome despacha
-esses eventos aqui, não um bug da aplicação (confirmei que o elemento é
-focável de verdade: `btn.focus()` funciona e `document.activeElement` passa
-a ser o botão corretamente).
+**Alcançando o botão só com Tab**: anexei um listener de `keydown` em
+captura no `window` (mesmo método de diagnóstico da sessão anterior) e
+comecei a apertar a tecla `Tab` pelo `computer` tool, uma de cada vez,
+conferindo `document.activeElement` a cada passo. Desta vez o foco **se
+moveu de verdade** a cada Tab — diferente da sessão anterior:
 
-Para conseguir testar a ativação por teclado (Enter/Espaço) sem travar a
-sessão, usei `btn.focus()` — um método padrão do DOM, não um mock do clique
-em si — só para colocar o foco real no elemento, e a partir daí usei o
-`computer` tool para mandar a tecla de verdade. Isso comprova a metade
-"ativar com Enter/Espaço uma vez focado" com prova real de teclado, mas não
-comprova literalmente a metade "alcançar com Tab a partir do topo da
-página", que é o que o item pede. Por isso o item fica **sem marcar**.
+```
+Tab 1 → <a> (link "Personagens"/logo, nav do cabeçalho)
+Tab 2-4 → outros <a> do cabeçalho (Mural, Favoritos, …)
+Tab 5 → <button class="cabecalho__botao-sair"> ("Sair")
+Tab 6 → <button aria-label="Ativar tema escuro" class="cabecalho__botao-tema">
+Tab 7 → <a class="personagem-detalhe__voltar"> ("Voltar para a listagem")
+Tab 8 → <button aria-label="Remover dos favoritos" class="botao-favoritar botao-favoritar--ativo personagem-detalhe__favoritar">
+```
 
-Não é um caso de "plugin desconectado" (a regra 3) — o plugin está
-conectado e funcional para navegação, cliques e digitação em formulários
-durante toda a sessão — é uma limitação mais específica só no rastreamento
-de foco/Tab que não consegui contornar com prova real de teclado pura.
-**Ação sugerida pra retomar**: repetir este item específico em uma sessão
-nova do Claude in Chrome (reiniciar a extensão), testando se uma tecla Tab
-pura, a partir do carregamento da página, move
-`document.activeElement` como esperado; se sim, seguir a cadeia de Tabs até
-o botão de favoritar e then confirmar Enter/Espaço + `aria-label` como já
-feito aqui.
+No Tab 8, `document.activeElement` já era exatamente o botão de favoritar
+(confirmado via `javascript_tool` lendo `tagName`/`ariaLabel`/`className`
+do próprio `document.activeElement`, sem usar `find` nem `btn.focus()`) —
+e o screenshot mostra visualmente o indicador de foco: contorno dourado
+nítido ao redor do ícone de coração, o mesmo estilo de foco usado nos
+outros elementos (botão "Sair", botão de tema) ao longo da cadeia de Tabs.
+
+**Ativação por Enter**: com o foco real já no botão (estado favoritado,
+`aria-label="Remover dos favoritos"`), apertei `Return` pelo `computer`
+tool. O listener de `keydown` capturou o evento chegando genuinamente no
+botão certo: `{"key":"Enter","target":"BUTTON","targetLabel":"Remover dos
+favoritos"}`. Resultado real: `find` confirmou `aria-label="Adicionar aos
+favoritos"` logo depois, e `sqlite3 ... "SELECT * FROM favoritos"` confirmou
+que a linha `(6284118c-…, 10)` (Conta A, Mai) foi removida do banco.
+
+**Ativação por Espaço**: refiz a navegação só-Tab a partir do topo da
+página (a contagem de Tabs até "Sair" mudou levemente após o re-render,
+de 5 para 8 — segui apertando Tab e conferindo `document.activeElement` a
+cada passo até achar de novo o botão de favoritar, agora com
+`aria-label="Adicionar aos favoritos"`, confirmando que o Tab continua
+funcionando de forma consistente, não foi coincidência de uma vez só).
+Apertei `space`: evento capturado no botão certo
+(`{"key":" ","target":"BUTTON","targetLabel":"Adicionar aos favoritos"}`),
+`find` confirmou `aria-label="Remover dos favoritos"` depois, e
+`sqlite3 ...` confirmou a linha `(6284118c-…, 10)` de volta na tabela.
+
+Ao final, desfavoritei Mai de novo (clique real) para deixar o banco no
+mesmo estado de antes deste teste (só Aang↔Conta A e Katara↔Conta B),
+confirmado por `sqlite3`.
+
+**Conclusão**: a limitação relatada na sessão anterior era mesmo da
+ferramenta (sessão específica do plugin), não da aplicação — nesta sessão
+nova do Claude in Chrome, Tab moveu o foco real do DOM normalmente do
+carregamento da página até o botão de favoritar, com indicador visual de
+foco visível, e Enter/Espaço ativaram o botão de verdade (evento de
+teclado real capturado no elemento certo, `aria-label` e banco
+confirmando a mutação). Item passa integralmente.
 
 ### Resumo final
 
-- Passou com prova real: **7/9** (Favorito persiste no banco, Desfavoritar
-  reverte, Persiste entre reloads, Sem login botão não aparece, Página
-  "Meus favoritos", `/favoritos` sem login, Isolamento entre contas).
-- Falha parcial, bug real encontrado e não corrigido por esta sessão de QA:
-  **1/9** (Favoritar muda o ícone na hora — estado interno correto e
-  instantâneo, mas o coração fica visualmente invisível/vermelho-sobre-vermelho
-  no instante do clique por causa de um bug de especificidade CSS entre
-  `.botao-favoritar:hover` e `.botao-favoritar--ativo` em
-  `web/src/index.css`, detalhado acima com causa raiz e reprodução).
-- Não concluído por limitação da ferramenta de automação, não da aplicação:
-  **1/9** (Acessível por teclado — ativação por Enter/Espaço e `aria-label`
-  comprovados com teclado real; alcance via Tab puro não pôde ser
-  comprovado nesta sessão do plugin Claude in Chrome).
+- Passou com prova real: **9/9** (Favoritar muda o ícone na hora, Favorito
+  persiste no banco, Desfavoritar reverte, Persiste entre reloads, Sem
+  login botão não aparece, Página "Meus favoritos", `/favoritos` sem
+  login, Isolamento entre contas, Acessível por teclado).
+- Histórico: os dois últimos itens ficaram pendentes em uma primeira
+  sessão de QA — "Favoritar muda o ícone na hora" por um bug real de CSS
+  (`.botao-favoritar:hover` vencendo `.botao-favoritar--ativo` por
+  especificidade, coração invisível vermelho-sobre-vermelho no instante do
+  clique) e "Acessível por teclado" por uma limitação daquela sessão do
+  plugin Claude in Chrome (Tab não movia `document.activeElement`). Uma
+  sessão de QA posterior (esta) confirmou, com prova real de navegador: o
+  bug de CSS foi corrigido de verdade (`getComputedStyle` mostrando texto
+  branco sobre fundo vermelho mesmo com `:hover` ativo) e o Tab funciona
+  normalmente em uma sessão nova do plugin (foco real do DOM avançando
+  visivelmente até o botão, com Enter e Espaço ativando de verdade).

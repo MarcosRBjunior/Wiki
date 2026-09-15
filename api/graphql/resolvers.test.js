@@ -155,6 +155,129 @@ test('criarConta rejeita e-mail sem formato válido', async () => {
   assert.equal(response.body.singleResult.errors[0].extensions.code, 'EMAIL_INVALIDO');
 });
 
+const FAVORITAR = `
+  mutation($personagemId: ID!) {
+    favoritar(personagemId: $personagemId) { id favoritado }
+  }
+`;
+
+const DESFAVORITAR = `
+  mutation($personagemId: ID!) {
+    desfavoritar(personagemId: $personagemId) { id favoritado }
+  }
+`;
+
+const MEUS_FAVORITOS = `
+  query { meusFavoritos { id nome } }
+`;
+
+async function criarUsuarioAutenticado() {
+  const email = `${crypto.randomUUID()}@teste.com`;
+  const response = await server.executeOperation({
+    query: CRIAR_CONTA,
+    variables: { email, senha: 'senha-valida-123' },
+  });
+  return response.body.singleResult.data.criarConta.usuario.id;
+}
+
+test('favoritar exige autenticação', async () => {
+  const [personagem] = listarPersonagens();
+
+  const response = await server.executeOperation(
+    { query: FAVORITAR, variables: { personagemId: personagem.id } },
+    { contextValue: { usuarioId: null } },
+  );
+
+  assert.equal(response.body.singleResult.data, null);
+  assert.equal(response.body.singleResult.errors[0].extensions.code, 'NAO_AUTENTICADO');
+});
+
+test('favoritar marca o personagem como favorito e passa a refletir em personagem(id)', async () => {
+  const usuarioId = await criarUsuarioAutenticado();
+  const [personagem] = listarPersonagens();
+
+  const resposta = await server.executeOperation(
+    { query: FAVORITAR, variables: { personagemId: personagem.id } },
+    { contextValue: { usuarioId } },
+  );
+  assert.equal(resposta.body.singleResult.errors, undefined);
+  assert.equal(resposta.body.singleResult.data.favoritar.favoritado, true);
+
+  const consulta = await server.executeOperation(
+    { query: 'query($id: ID!) { personagem(id: $id) { favoritado } }', variables: { id: personagem.id } },
+    { contextValue: { usuarioId } },
+  );
+  assert.equal(consulta.body.singleResult.data.personagem.favoritado, true);
+});
+
+test('favoritar rejeita personagem inexistente', async () => {
+  const usuarioId = await criarUsuarioAutenticado();
+
+  const response = await server.executeOperation(
+    { query: FAVORITAR, variables: { personagemId: 'id-que-nao-existe' } },
+    { contextValue: { usuarioId } },
+  );
+
+  assert.equal(response.body.singleResult.data, null);
+  assert.equal(response.body.singleResult.errors[0].extensions.code, 'PERSONAGEM_NAO_ENCONTRADO');
+});
+
+test('desfavoritar reverte o estado de favorito', async () => {
+  const usuarioId = await criarUsuarioAutenticado();
+  const [personagem] = listarPersonagens();
+
+  await server.executeOperation(
+    { query: FAVORITAR, variables: { personagemId: personagem.id } },
+    { contextValue: { usuarioId } },
+  );
+  const resposta = await server.executeOperation(
+    { query: DESFAVORITAR, variables: { personagemId: personagem.id } },
+    { contextValue: { usuarioId } },
+  );
+
+  assert.equal(resposta.body.singleResult.errors, undefined);
+  assert.equal(resposta.body.singleResult.data.desfavoritar.favoritado, false);
+});
+
+test('meusFavoritos exige autenticação', async () => {
+  const response = await server.executeOperation(
+    { query: MEUS_FAVORITOS },
+    { contextValue: { usuarioId: null } },
+  );
+
+  assert.equal(response.body.singleResult.data, null);
+  assert.equal(response.body.singleResult.errors[0].extensions.code, 'NAO_AUTENTICADO');
+});
+
+test('meusFavoritos lista só os personagens favoritados pelo usuário logado', async () => {
+  const usuarioA = await criarUsuarioAutenticado();
+  const usuarioB = await criarUsuarioAutenticado();
+  const [primeiro, segundo] = listarPersonagens();
+
+  await server.executeOperation(
+    { query: FAVORITAR, variables: { personagemId: primeiro.id } },
+    { contextValue: { usuarioId: usuarioA } },
+  );
+  await server.executeOperation(
+    { query: FAVORITAR, variables: { personagemId: segundo.id } },
+    { contextValue: { usuarioId: usuarioB } },
+  );
+
+  const respostaA = await server.executeOperation(
+    { query: MEUS_FAVORITOS },
+    { contextValue: { usuarioId: usuarioA } },
+  );
+  const idsA = respostaA.body.singleResult.data.meusFavoritos.map((p) => p.id);
+  assert.deepEqual(idsA, [primeiro.id]);
+
+  const respostaB = await server.executeOperation(
+    { query: MEUS_FAVORITOS },
+    { contextValue: { usuarioId: usuarioB } },
+  );
+  const idsB = respostaB.body.singleResult.data.meusFavoritos.map((p) => p.id);
+  assert.deepEqual(idsB, [segundo.id]);
+});
+
 test('cadastro e login não diferenciam maiúsculas/minúsculas no e-mail', async () => {
   const email = `CaseTeste-${crypto.randomUUID()}@Teste.com`;
   const senha = 'senha-valida-123';

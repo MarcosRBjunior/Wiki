@@ -3,7 +3,8 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_FILE = path.join(__dirname, 'personagens.db');
+const DB_FILE =
+  process.env.NODE_ENV === 'test' ? ':memory:' : path.join(__dirname, 'personagens.db');
 
 export const db = new Database(DB_FILE);
 
@@ -18,5 +19,22 @@ db.exec(`
     historia TEXT NOT NULL,
     sonhos TEXT NOT NULL,
     imagem TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS usuarios (
+    id TEXT PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    senha_hash TEXT NOT NULL,
+    criado_em TEXT NOT NULL
+  )
+`);
+
+db.exec(`
+  CREATE TABLE IF NOT EXISTS favoritos (
+    usuario_id TEXT NOT NULL REFERENCES usuarios(id),
+    personagem_id TEXT NOT NULL REFERENCES personagens(id),
+    PRIMARY KEY (usuario_id, personagem_id)
   )
 `);

@@ -37,7 +37,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-tema="claro"]) {
     --dourado: oklch(80% 0.12 85);
     --cor-fundo: oklch(16% 0.018 50);
     --cor-superficie: oklch(22% 0.02 55);
@@ -46,6 +46,16 @@
     --cor-texto-suave: oklch(71% 0.02 65);
     --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px rgba(0, 0, 0, .35);
   }
+}
+
+:root[data-tema="escuro"] {
+  --dourado: oklch(80% 0.12 85);
+  --cor-fundo: oklch(16% 0.018 50);
+  --cor-superficie: oklch(22% 0.02 55);
+  --cor-borda: oklch(33% 0.025 60);
+  --cor-texto: oklch(93% 0.018 70);
+  --cor-texto-suave: oklch(71% 0.02 65);
+  --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 28px rgba(0, 0, 0, .35);
 }
 
 * {
@@ -85,10 +95,15 @@ body::after {
 }
 
 @media (prefers-color-scheme: dark) {
-  body::after {
+  :root:not([data-tema="claro"]) body::after {
     mix-blend-mode: overlay;
     opacity: .35;
   }
+}
+
+:root[data-tema="escuro"] body::after {
+  mix-blend-mode: overlay;
+  opacity: .35;
 }
 
 h1,
@@ -200,6 +215,66 @@ svg {
   text-decoration: underline;
 }
 
+.cabecalho__usuario {
+  color: var(--cor-texto-suave);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.cabecalho__botao-sair {
+  font: inherit;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: .02em;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.cabecalho__botao-sair:hover {
+  color: var(--cor-primaria-escura);
+  text-decoration: underline;
+}
+
+.cabecalho__botao-tema {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--cor-borda);
+  border-radius: 50%;
+  background: var(--cor-superficie);
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.cabecalho__botao-tema:hover {
+  color: var(--cor-primaria-escura);
+  border-color: var(--cor-primaria-escura);
+}
+
+.cabecalho__botao-tema svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.cabecalho__botao-tema svg circle {
+  fill: currentColor;
+  stroke: none;
+}
+
+.cabecalho__botao-tema svg path:first-child {
+  fill: currentColor;
+  stroke: none;
+}
+
 .conteudo {
   position: relative;
   z-index: 1;
@@ -216,6 +291,71 @@ svg {
 
 .estado-info--erro {
   color: var(--cor-erro);
+}
+
+/* Formulários de autenticação */
+
+.formulario-auth {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.formulario-auth h2 {
+  margin-top: 0;
+}
+
+.formulario-auth form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.formulario-auth label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cor-texto-suave);
+}
+
+.formulario-auth input {
+  font: inherit;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: calc(var(--raio) / 2);
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+}
+
+.formulario-auth button[type="submit"] {
+  font: inherit;
+  font-weight: 800;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  cursor: pointer;
+}
+
+.formulario-auth button[type="submit"]:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.formulario-auth__erro {
+  color: var(--cor-erro);
+  font-size: 14px;
+}
+
+.formulario-auth__rodape {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: var(--cor-texto-suave);
 }
 
 /* Filtro por nação */
@@ -411,6 +551,55 @@ svg {
 
 .personagem-detalhe__cabecalho {
   position: relative;
+}
+
+.personagem-detalhe__favoritar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.botao-favoritar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.botao-favoritar svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.botao-favoritar:hover {
+  color: var(--cor-fogo);
+  border-color: var(--cor-fogo);
+}
+
+.botao-favoritar:disabled {
+  opacity: .6;
+  cursor: default;
+}
+
+.botao-favoritar--ativo,
+.botao-favoritar--ativo:hover {
+  color: #fff;
+  background: var(--cor-fogo);
+  border-color: var(--cor-fogo);
+}
+
+.botao-favoritar--ativo svg {
+  fill: currentColor;
 }
 
 .personagem-detalhe__marca-dagua {
@@ -628,8 +817,16 @@ svg {
   width: 108px;
   height: 108px;
   border-radius: 50%;
+  background: radial-gradient(circle at 33% 28%, color-mix(in oklch, var(--cor-nacao-atual, var(--cor-primaria)) 55%, white 18%), var(--cor-nacao-atual, var(--cor-primaria)) 72%);
+  color: var(--cor-sobre-nacao-atual, var(--cor-sobre-primaria));
   border: 3px solid var(--dourado);
   box-shadow: var(--sombra);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
   object-fit: cover;
 }
 
